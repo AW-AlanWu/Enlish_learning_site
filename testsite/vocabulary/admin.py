@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Words, Sentences
+from .models import Word, Sentence
 # Register your models here.
-admin.site.register(Words)
-admin.site.register(Sentences)
+admin.site.register(Word)
+admin.site.register(Sentence)

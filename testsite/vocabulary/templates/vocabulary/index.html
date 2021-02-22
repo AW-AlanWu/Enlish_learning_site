@@ -1,0 +1,9 @@
+{% if vocabulary_list %}
+    <ul>
+    {% for vocabulary in vocabulary_list %}
+        <li><a href="{% url 'vocabulary:detail' vocabulary.id %}">{{ vocabulary.word_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>There's no vocabulary.</p>
+{% endif %}

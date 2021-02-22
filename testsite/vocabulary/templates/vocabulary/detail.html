@@ -1,0 +1,10 @@
+<h1>{{ word.word_text }}</h1>
+<h2>{{ word.word_chinese }}</h2>
+
+<ul>
+{% for sentence in word.sentence_set.all %}
+    <li>{{ sentence.sentence_text }}</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'vocabulary:index'%}">GO BACK?</a>
