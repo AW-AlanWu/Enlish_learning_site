@@ -1,10 +1,20 @@
-<h1>{{ word.word_text }}</h1>
-<h2>{{ word.word_chinese }}</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ word.word_text }}</title>
+</head>
+<body>
+    <h1>{{ word.word_text }}</h1>
+    <h2>{{ word.word_chinese }}</h2>
 
-<ul>
-{% for sentence in word.sentence_set.all %}
-    <li>{{ sentence.sentence_text }}</li>
-{% endfor %}
-</ul>
+    <ul>
+    {% for sentence in word.sentence_set.all %}
+        <li><em>{{ sentence.sentence_text }}</em></li>
+    {% endfor %}
+    </ul>
 
-<a href="{% url 'vocabulary:index'%}">GO BACK?</a>
+    <a href="{% url 'vocabulary:index'%}" title="back to Index">GO BACK?</a><p>
+    <img src="meme.png" alt="">
+</body>
+</html>

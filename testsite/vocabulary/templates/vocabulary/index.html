@@ -1,9 +1,19 @@
-{% if vocabulary_list %}
-    <ul>
-    {% for vocabulary in vocabulary_list %}
-        <li><a href="{% url 'vocabulary:detail' vocabulary.id %}">{{ vocabulary.word_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>There's no vocabulary.</p>
-{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+    <h1>Enlish_learning_site</h1>
+    {% if vocabulary_list %}
+        <ol>
+        {% for vocabulary in vocabulary_list %}
+            <li><a href="{% url 'vocabulary:detail' vocabulary.id %}" title="{{vocabulary.word_text}}">{{ vocabulary.word_text }}</a></li>
+        {% endfor %}
+        </ol>
+    {% else %}
+        <p>There's no vocabulary.</p>
+    {% endif %}
+</body>
+</html>
