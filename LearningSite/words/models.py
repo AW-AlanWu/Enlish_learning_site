@@ -5,13 +5,13 @@ class CharacterSet(models.Model):
     set_name = models.CharField(max_length = 100)
     def __str__(self):
         return self.set_name
-class Character(models.Model):
+class Vocabulary(models.Model):
     character_set = models.ForeignKey(CharacterSet, on_delete=models.CASCADE)
     english = models.CharField(max_length = 50)
     def __str__(self):
         return self.english
 class Meaning(models.Model):
-    character = models.ForeignKey(Character, on_delete=models.CASCADE)
+    vocabulary = models.ForeignKey(Vocabulary, on_delete=models.CASCADE)
     noun = 'n'
     pronoun = 'pron'
     verb = 'v'
