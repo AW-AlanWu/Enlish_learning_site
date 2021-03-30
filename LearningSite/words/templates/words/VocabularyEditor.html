@@ -2,17 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>WordEditor</title>
+    <title>{{title}}</title>
 </head>
 <body>
     {% if Vocabulary_list %}
         <ul>
         {% for Vocabulary in Vocabulary_list %}
-            <li>{{Vocabulary.english}}</li>
+            <li><a href="{% url 'words:MeaningEditor' Vocabulary.pk %}">{{Vocabulary.english}}</a></li>
         {% endfor %}
         </ul>
     {% else %}
         <p>No Vocabulary are available.</p>
     {% endif %}
+
+    <strong><a href="{% url 'words:CharacterSetEditor' %}">go back?</a></strong>
 </body>
 </html>

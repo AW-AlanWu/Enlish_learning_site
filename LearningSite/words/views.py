@@ -21,4 +21,18 @@ def CharacterSetEditor(request):
 def VocabularyEditor(request, set_id):
     object = get_object_or_404(CharacterSet, pk=set_id)
     Vocabulary_list = object.vocabulary_set.order_by('-pk')
-    return render(request, 'words/VocabularyEditor.html', {'Vocabulary_list': Vocabulary_list})
+    context = {
+        'Vocabulary_list': Vocabulary_list,
+        'title': object.set_name
+    }
+    return render(request, 'words/VocabularyEditor.html', context)
+
+def MeaningEditor(request, voc_id):
+    object = get_object_or_404(Vocabulary, pk=voc_id)
+    Meaning_list = object.meaning_set.order_by('-pk')
+    context = {
+        'Meaning_list': Meaning_list,
+        'title': object.english,
+        'back': object.character_set.pk
+    }
+    return render(request, 'words/MeaningEditor.html', context)

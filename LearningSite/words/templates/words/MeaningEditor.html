@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+</head>
+<body>
+    {% if Meaning_list %}
+        <ol>
+        {% for Meaning in Meaning_list %}
+            <li><strong>{{ Meaning.chinese }}-{{ Meaning.speech }}</strong></li>
+            <p><em>例句：</em></p>
+            <p>英：{{ Meaning.enlish_sentences }}</p>
+            <p>中：{{ Meaning.chinese_sentences }}</p>
+        {% endfor %}
+        </ol>
+    {% else %}
+        <p>No Meaning are available.</p>
+    {% endif %}
+
+    <strong><a href="{% url 'words:VocabularyEditor' back %}">go back?</a></strong>
+</body>
+</html>
