@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.views import generic
 from .models import CharacterSet, Vocabulary
@@ -13,9 +13,12 @@ def index(request):
 
     return render(request, 'words/index.html', context=context)
 
-class WordEditor(generic.ListView):
-    template_name = 'words/WordEditor.html'
-    context_object_name = 'CharacterSet_list'
+def CharacterSetEditor(request):
+    CharacterSet_list = CharacterSet.objects.order_by('-pk')
+    context = {'CharacterSet_list': CharacterSet_list}
+    return render(request, 'words/CharacterSetEditor.html', context)
 
-    def get_queryset(self):
-        return CharacterSet.objects.order_by('-pk')
+def VocabularyEditor(request, set_id):
+    object = get_object_or_404(CharacterSet, pk=set_id)
+    Vocabulary_list = object.vocabulary_set.order_by('-pk')
+    return render(request, 'words/VocabularyEditor.html', {'Vocabulary_list': Vocabulary_list})

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WordEditor</title>
+</head>
+<body>
+    {% if CharacterSet_list %}
+        <ul>
+        {% for CharacterSet in CharacterSet_list %}
+            <li><a href="{% url 'words:VocabularyEditor' CharacterSet.pk %}">{{CharacterSet.set_name}}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No CharacterSet are available.</p>
+    {% endif %}
+</body>
+</html>

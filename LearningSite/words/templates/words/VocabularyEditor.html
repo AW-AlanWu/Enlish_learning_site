@@ -5,14 +5,14 @@
     <title>WordEditor</title>
 </head>
 <body>
-    {% if CharacterSet_list %}
+    {% if Vocabulary_list %}
         <ul>
-        {% for CharacterSet in CharacterSet_list %}
-            <li>{{CharacterSet.set_name}}</li>
+        {% for Vocabulary in Vocabulary_list %}
+            <li>{{Vocabulary.english}}</li>
         {% endfor %}
         </ul>
     {% else %}
-        <p>No CharacterSet are available.</p>
+        <p>No Vocabulary are available.</p>
     {% endif %}
 </body>
 </html>
