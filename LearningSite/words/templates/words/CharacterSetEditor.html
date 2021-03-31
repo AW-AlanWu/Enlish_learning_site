@@ -5,6 +5,7 @@
     <title>WordEditor</title>
 </head>
 <body>
+    <h1>字集創建區</h1>
     {% if CharacterSet_list %}
         <ul>
         {% for CharacterSet in CharacterSet_list %}
@@ -14,6 +15,11 @@
     {% else %}
         <p>No CharacterSet are available.</p>
     {% endif %}
+
+    <form>
+        <p><label for="set">新增字集：</label><input type="text" required name="character_set" id="set"></p>
+        <input type="submit" name="add">
+    </form>
 
     <strong><a href="{% url 'words:index' %}">回主頁</a></strong>
 </body>

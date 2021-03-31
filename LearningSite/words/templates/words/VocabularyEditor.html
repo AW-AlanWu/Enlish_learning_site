@@ -5,6 +5,7 @@
     <title>{{title}}</title>
 </head>
 <body>
+    <h1>單字創建區</h1>
     {% if Vocabulary_list %}
         <ul>
         {% for Vocabulary in Vocabulary_list %}
@@ -14,6 +15,11 @@
     {% else %}
         <p>No Vocabulary are available.</p>
     {% endif %}
+
+    <form>
+        <p><label for="voc">新增單字：</label><input type="text" required name="vocabulary" id="voc"></p>
+        <input type="submit" name="add">
+    </form>
 
     <strong><a href="{% url 'words:CharacterSetEditor' %}">go back?</a></strong>
 </body>
