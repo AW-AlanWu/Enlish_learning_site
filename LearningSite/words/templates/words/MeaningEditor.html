@@ -37,6 +37,7 @@
         <input type="submit" name="add">
     </form>
 
-    <strong><a href="{% url 'words:VocabularyEditor' back %}">go back?</a></strong>
+    <p>
+        <input type="button" value="go back?" onclick="location.href='{% url 'words:VocabularyEditor' back %}'">
 </body>
 </html>

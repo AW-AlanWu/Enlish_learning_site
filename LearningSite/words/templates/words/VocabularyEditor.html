@@ -3,24 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>{{title}}</title>
+    <script>
+        function editVoc(button) {
+            var id = button.parentNode.id;
+            var result = "";
+            while(result === "") {
+                result = prompt("請輸入欲修改的內容");
+                if(result === null)
+                    return;
+                if(result === "")
+                    alert("請輸入內容");
+            }
+            post_to_url("https://tsj.tw/", {'voc_change' : result, 'id' : id});
+        }
+
+        function post_to_url(path, params) {
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", path);
+
+            for(var key in params) {
+                var hiddenField = document.createElement("input");
+                hiddenField.setAttribute("type", "hidden");
+                hiddenField.setAttribute("name", key);
+                hiddenField.setAttribute("value", params[key]);
+
+                form.appendChild(hiddenField);
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
 </head>
 <body>
     <h1>單字創建區</h1>
     {% if Vocabulary_list %}
         <ul>
         {% for Vocabulary in Vocabulary_list %}
-            <li><a href="{% url 'words:MeaningEditor' Vocabulary.pk %}">{{Vocabulary.english}}</a></li>
+            <li id = "{{ Vocabulary.pk }}"><a href="{% url 'words:MeaningEditor' Vocabulary.pk %}">{{Vocabulary.english}}</a>&nbsp;<button onclick="editVoc(this);">編輯</button></li>
         {% endfor %}
         </ul>
     {% else %}
         <p>No Vocabulary are available.</p>
     {% endif %}
 
-    <form>
+    <form action="https://tsj.tw/" method="post">
+        {% csrf_token %}
         <p><label for="voc">新增單字：</label><input type="text" required name="vocabulary" id="voc"></p>
-        <input type="submit" name="add">
+        <input type="submit">
     </form>
-
-    <strong><a href="{% url 'words:CharacterSetEditor' %}">go back?</a></strong>
+    <p>
+    <input type="button" value="go back?" onclick="location.href='{% url 'words:CharacterSetEditor' %}'">
 </body>
 </html>
