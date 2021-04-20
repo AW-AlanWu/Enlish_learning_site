@@ -19,6 +19,12 @@
 
 ### template:
 >> 計畫以bootstrap美化網頁
+1. html:
+	1. 目前主要是依靠template的render，加上部分簡單的標籤完成的，唯一較複雜的是傳送資料的表單和結合javascript的按鈕
+	>> 預計在完成所有主要功能後才會進行美化排版的處理
+2. javascript:
+	1. 為了能夠不讓網頁頁面太繁雜，因此在實作刪減及編輯功能時利用javascript動態產生表單傳輸資料，結合了html的按鈕
+	>> 預計日後的測驗區也會採用javascript實作，不過到時候前後台資料傳輸的方式還正在考慮(目前傾向於Django REST framework)
 
 ### model:
 單字儲存part(實作完成)：
