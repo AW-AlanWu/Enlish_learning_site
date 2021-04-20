@@ -1,7 +1,8 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from .models import CharacterSet, Vocabulary
+from django.urls import reverse
 
 def index(request):
     num_visits = request.session.get('num_visits', 0)
@@ -36,3 +37,26 @@ def MeaningEditor(request, voc_id):
         'back': object.character_set.pk
     }
     return render(request, 'words/MeaningEditor.html', context)
+
+def DelSet(request):
+    Set = get_object_or_404(CharacterSet, pk=request.POST['id'])
+    Set.delete()
+    return HttpResponseRedirect(reverse('words:CharacterSetEditor'))
+
+def EditSet(request):
+    return HttpResponse("HI")
+
+def AddSet(request):
+    return HttpResponse("HI")
+
+def DelVoc(request):
+    Voc = get_object_or_404(Vocabulary, pk=request.POST['id'])
+    args = Voc.character_set_id
+    Voc.delete()
+    return HttpResponseRedirect(reverse('words:VocabularyEditor', args=(args,)))
+    
+def EditSet(request):
+    return HttpResponse("HI")
+
+def AddSet(request):
+    return HttpResponse("HI")

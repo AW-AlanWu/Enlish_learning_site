@@ -19,7 +19,8 @@
     {% endif %}
 
     <p><em>下方新增解釋</em></p>
-    <form>
+    <form  action="https://tsj.tw/" method="post">
+        {% csrf_token %}
         <p><label for="mean">中文解釋：</label><input type="text" required name="meaning" id="mean"></p>
         <p><label for="english">例句(英)：</label><input type="text" required name="english_sentences" id="english"></p>
         <p><label for="chinese">例句(中)</label><input type="text" required name="chinese_sentences" id="chinese"></p>

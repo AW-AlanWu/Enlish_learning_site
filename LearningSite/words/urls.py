@@ -8,4 +8,6 @@ urlpatterns = [
     path('WordEditor/', views.CharacterSetEditor, name='CharacterSetEditor'),
     path('WordEditor/voc/<int:set_id>/', views.VocabularyEditor, name='VocabularyEditor'),
     path('WordEditor/voc/meaning/<int:voc_id>', views.MeaningEditor, name='MeaningEditor'),
+    path('WordEditor/DelSet', views.DelSet, name='DelSet'),
+    path('WordEditor/voc/DelVoc', views.DelVoc, name='DelVoc'),
 ]

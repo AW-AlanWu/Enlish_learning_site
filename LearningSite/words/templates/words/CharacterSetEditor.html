@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>WordEditor</title>
 
+    {% csrf_token %}
     <script>
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
         function editSet(button) {
             var id = button.parentNode.id;
             var result = "";
@@ -18,7 +21,19 @@
             post_to_url("https://tsj.tw/", {'set_change' : result, 'id' : id});
         }
 
+        function delSet(button) {
+            var id = button.parentNode.id;
+            var msg = "您真的確定要刪除嗎？\n\n請確認！";
+            if (confirm(msg)==true){
+                post_to_url("{% url 'words:DelSet'%}", {'id' : id});
+            } else{
+                return;
+            }
+        }
+
         function post_to_url(path, params) {
+            params.csrfmiddlewaretoken = csrftoken;
+
             var form = document.createElement("form");
             form.setAttribute("method", "post");
             form.setAttribute("action", path);
@@ -42,14 +57,14 @@
     {% if CharacterSet_list %}
         <ul>
         {% for CharacterSet in CharacterSet_list %}
-            <li id = "{{ CharacterSet.pk }}"><a href="{% url 'words:VocabularyEditor' CharacterSet.pk %}">{{CharacterSet.set_name}}</a>&nbsp;<button onclick="editSet(this);">編輯</button></li>
+            <li id = "{{ CharacterSet.pk }}"><a href="{% url 'words:VocabularyEditor' CharacterSet.pk %}">{{CharacterSet.set_name}}</a>&nbsp;<button onclick="editSet(this);">編輯</button>&nbsp;<button onclick="delSet(this);">刪除</button></li>
         {% endfor %}
         </ul>
     {% else %}
         <p>No CharacterSet are available.</p>
     {% endif %}
 
-    <form action="https://tsj.tw/" method="post">
+    <form action="https://tsj.tw/" method="get">
         {% csrf_token %}
         <p><label for="set">新增字集：</label><input type="text" required name="character_set" id="set"></p>
         <input type="submit">

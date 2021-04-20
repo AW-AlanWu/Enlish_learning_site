@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>{{title}}</title>
+
+    {% csrf_token %}
     <script>
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        
         function editVoc(button) {
             var id = button.parentNode.id;
             var result = "";
@@ -17,7 +21,19 @@
             post_to_url("https://tsj.tw/", {'voc_change' : result, 'id' : id});
         }
 
+        function delVoc(button) {
+            var id = button.parentNode.id;
+            var msg = "您真的確定要刪除嗎？\n\n請確認！";
+            if (confirm(msg)==true){
+                post_to_url("{% url 'words:DelVoc'%}", {'id' : id});
+            } else{
+                return;
+            }
+        }
+
         function post_to_url(path, params) {
+            params.csrfmiddlewaretoken = csrftoken;
+
             var form = document.createElement("form");
             form.setAttribute("method", "post");
             form.setAttribute("action", path);
@@ -41,7 +57,7 @@
     {% if Vocabulary_list %}
         <ul>
         {% for Vocabulary in Vocabulary_list %}
-            <li id = "{{ Vocabulary.pk }}"><a href="{% url 'words:MeaningEditor' Vocabulary.pk %}">{{Vocabulary.english}}</a>&nbsp;<button onclick="editVoc(this);">編輯</button></li>
+            <li id = "{{ Vocabulary.pk }}"><a href="{% url 'words:MeaningEditor' Vocabulary.pk %}">{{Vocabulary.english}}</a>&nbsp;<button onclick="editVoc(this);">編輯</button>&nbsp;<button onclick="delVoc(this);">刪除</button></li>
         {% endfor %}
         </ul>
     {% else %}
