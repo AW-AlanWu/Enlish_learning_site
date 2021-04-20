@@ -18,7 +18,7 @@
                 if(result === "")
                     alert("請輸入內容");
             }
-            post_to_url("https://tsj.tw/", {'voc_change' : result, 'id' : id});
+            post_to_url("{% url 'words:EditVoc'%}", {'voc_change' : result, 'id' : id});
         }
 
         function delVoc(button) {
@@ -64,9 +64,10 @@
         <p>No Vocabulary are available.</p>
     {% endif %}
 
-    <form action="https://tsj.tw/" method="post">
+    <form action="{% url 'words:AddVoc'%}" method="POST">
         {% csrf_token %}
         <p><label for="voc">新增單字：</label><input type="text" required name="vocabulary" id="voc"></p>
+        <input type="hidden" name="id" value="{{ Set_id }}">
         <input type="submit">
     </form>
     <p>

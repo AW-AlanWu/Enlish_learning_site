@@ -24,7 +24,8 @@ def VocabularyEditor(request, set_id):
     Vocabulary_list = object.vocabulary_set.order_by('-pk')
     context = {
         'Vocabulary_list': Vocabulary_list,
-        'title': object.set_name
+        'title': object.set_name,
+        'Set_id': object.pk
     }
     return render(request, 'words/VocabularyEditor.html', context)
 
@@ -34,7 +35,8 @@ def MeaningEditor(request, voc_id):
     context = {
         'Meaning_list': Meaning_list,
         'title': object.english,
-        'back': object.character_set.pk
+        'Voc_id': object.pk,
+        'Set_id': object.character_set.pk
     }
     return render(request, 'words/MeaningEditor.html', context)
 
@@ -44,10 +46,15 @@ def DelSet(request):
     return HttpResponseRedirect(reverse('words:CharacterSetEditor'))
 
 def EditSet(request):
-    return HttpResponse("HI")
+    Set = get_object_or_404(CharacterSet, pk=request.POST['id'])
+    Set.set_name = request.POST['set_change']
+    Set.save()
+    return HttpResponseRedirect(reverse('words:CharacterSetEditor'))
 
 def AddSet(request):
-    return HttpResponse("HI")
+    Set = CharacterSet(set_name = request.POST['character_set'])
+    Set.save()
+    return HttpResponseRedirect(reverse('words:CharacterSetEditor'))
 
 def DelVoc(request):
     Voc = get_object_or_404(Vocabulary, pk=request.POST['id'])
@@ -55,8 +62,16 @@ def DelVoc(request):
     Voc.delete()
     return HttpResponseRedirect(reverse('words:VocabularyEditor', args=(args,)))
     
-def EditSet(request):
-    return HttpResponse("HI")
+def EditVoc(request):
+    Voc = get_object_or_404(Vocabulary, pk=request.POST['id'])
+    Voc.english = request.POST['voc_change']
+    Voc.save()
+    args = request.POST['id']
+    return HttpResponseRedirect(reverse('words:VocabularyEditor', args=(args,)))
 
-def AddSet(request):
-    return HttpResponse("HI")
+def AddVoc(request):
+    args = request.POST['id']
+    Set = get_object_or_404(CharacterSet, pk=args)
+    Voc = Vocabulary(english = request.POST['vocabulary'], character_set = Set)
+    Voc.save()
+    return HttpResponseRedirect(reverse('words:VocabularyEditor', args=(args,)))
