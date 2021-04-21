@@ -3,12 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>{{title}}</title>
+
+    {% csrf_token %}
+    <script>
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        function delMeaning(button) {
+            var id = button.parentNode.id;
+            var msg = "您真的確定要刪除嗎？\n\n請確認！";
+            if (confirm(msg)==true){
+                post_to_url("{% url 'words:DelMeaning'%}", {'id' : id});
+            } else{
+                return;
+            }
+        }
+
+        function post_to_url(path, params) {
+            params.csrfmiddlewaretoken = csrftoken;
+
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", path);
+
+            for(var key in params) {
+                var hiddenField = document.createElement("input");
+                hiddenField.setAttribute("type", "hidden");
+                hiddenField.setAttribute("name", key);
+                hiddenField.setAttribute("value", params[key]);
+
+                form.appendChild(hiddenField);
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
 </head>
 <body>
     {% if Meaning_list %}
         <ol>
         {% for Meaning in Meaning_list %}
-            <li><strong>{{ Meaning.chinese }}-{{ Meaning.speech }}</strong></li>
+            <li id = "{{ Meaning.pk }}"><strong>{{ Meaning.chinese }}-{{ Meaning.speech }}</strong>&nbsp;<button onclick="delMeaning(this);">刪除</button></li>
             <p><em>例句：</em></p>
             <p>英：{{ Meaning.enlish_sentences }}</p>
             <p>中：{{ Meaning.chinese_sentences }}</p>
@@ -19,7 +54,7 @@
     {% endif %}
 
     <p><em>下方新增解釋</em></p>
-    <form  action="https://tsj.tw/" method="post">
+    <form  action="{% url 'words:AddMeaning'%}" method="POST">
         {% csrf_token %}
         <p><label for="mean">中文解釋：</label><input type="text" required name="meaning" id="mean"></p>
         <p><label for="english">例句(英)：</label><input type="text" required name="english_sentences" id="english"></p>
@@ -35,7 +70,8 @@
                 <option value="conj">連接詞</option>
                 <option value="int">感嘆詞</option>
             </select></p>
-        <input type="submit" name="add">
+        <input type="hidden" name="id" value="{{ Voc_id }}">
+        <input type="submit">
     </form>
 
     <p>

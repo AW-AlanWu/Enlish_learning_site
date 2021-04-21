@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
-from .models import CharacterSet, Vocabulary
+from .models import CharacterSet, Vocabulary, Meaning
 from django.urls import reverse
 
 def index(request):
@@ -66,7 +66,7 @@ def EditVoc(request):
     Voc = get_object_or_404(Vocabulary, pk=request.POST['id'])
     Voc.english = request.POST['voc_change']
     Voc.save()
-    args = request.POST['id']
+    args = Voc.character_set_id
     return HttpResponseRedirect(reverse('words:VocabularyEditor', args=(args,)))
 
 def AddVoc(request):
@@ -75,3 +75,16 @@ def AddVoc(request):
     Voc = Vocabulary(english = request.POST['vocabulary'], character_set = Set)
     Voc.save()
     return HttpResponseRedirect(reverse('words:VocabularyEditor', args=(args,)))
+
+def AddMeaning(request):
+    args = request.POST['id']
+    Voc = get_object_or_404(Vocabulary, pk=args)
+    Mean = Meaning(chinese = request.POST['meaning'], chinese_sentences = request.POST['chinese_sentences'], enlish_sentences = request.POST['english_sentences'], speech = request.POST['speech'], vocabulary = Voc)
+    Mean.save()
+    return HttpResponseRedirect(reverse('words:MeaningEditor', args=(args,)))
+
+def DelMeaning(request):
+    Mean = get_object_or_404(Meaning, pk=request.POST['id'])
+    args = Mean.vocabulary_id
+    Mean.delete()
+    return HttpResponseRedirect(reverse('words:MeaningEditor', args=(args,)))
