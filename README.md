@@ -33,6 +33,32 @@
 使用者關聯part(尚未實作)：
 >> 歷史成績(答對、錯誤單字,所用字集,字集正確、錯誤數)
 
+## 目前網站外觀
+
+### 1
+![alt text]()
+
+### 2
+![alt text]()
+
+### 3
+![alt text]()
+
+### 4
+![alt text]()
+
+### 5
+![alt text]()
+
+### 6
+![alt text]()
+
+### 7
+![alt text]()
+
+### 8
+![alt text]()
+
 <!--admin_site：
 Username=admin
 Password=zaq1xsw2-->
