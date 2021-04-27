@@ -35,29 +35,35 @@
 
 ## 目前網站外觀
 
-### 1
-![alt text]()
+### 首頁
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/1.png)
 
-### 2
-![alt text]()
+### 字集創建區
 
-### 3
-![alt text]()
+>> (無字集)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/2.png)
 
-### 4
-![alt text]()
+>> (有一字集)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/3.png)
 
-### 5
-![alt text]()
+### 單字創建區
 
-### 6
-![alt text]()
+>> (無單字)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/4.png)
 
-### 7
-![alt text]()
+>> (有一單字)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/5.png)
 
-### 8
-![alt text]()
+### 解釋創建區
+
+>> (無解釋)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/6.png)
+
+>> (表單新增解釋)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/7.png)
+
+>> (有一解釋)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/8.png)
 
 <!--admin_site：
 Username=admin
