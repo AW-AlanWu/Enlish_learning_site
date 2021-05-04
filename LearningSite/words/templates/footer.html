@@ -1,0 +1,14 @@
+<!-- footer.html -->
+{% block footer %}
+    <p>{% if num_visits %}
+            You have visited this page  {{ num_visits }}
+            {% if num_visits == 1 %} 
+                time
+            {% else %}
+                times
+            {% endif %}.
+        {% endif %}
+    </p>
+
+    <p>如有任何問題，請聯絡製作者：alan.92925@gmail.com</p>
+{% endblock %}

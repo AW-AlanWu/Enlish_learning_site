@@ -3,6 +3,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    {% load static %}
+    <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet" />
     <title>
         {% block title %} {% endblock %}
     </title>
