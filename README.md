@@ -36,34 +36,38 @@
 ## 目前網站外觀
 
 ### 首頁
+
 ![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/1.png)
+
+>> (重新刷新首頁)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/2.png)
+
+>> (多次刷新首頁後)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/3.png)
 
 ### 字集創建區
 
 >> (無字集)
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/2.png)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/4.png)
 
 >> (有一字集)
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/3.png)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/5.png)
 
 ### 單字創建區
 
 >> (無單字)
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/4.png)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/6.png)
 
 >> (有一單字)
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/5.png)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/7.png)
 
 ### 解釋創建區
 
 >> (無解釋)
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/6.png)
-
->> (表單新增解釋)
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/7.png)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/8.png)
 
 >> (有一解釋)
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/8.png)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/9.png)
 
 <!--admin_site：
 Username=admin
