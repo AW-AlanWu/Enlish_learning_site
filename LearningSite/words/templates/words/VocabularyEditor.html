@@ -40,15 +40,17 @@
 
 {% block content %}
     {% if Vocabulary_list %}
-        <ul class = "list-unstyled">
+        <table class = "table">
             {% for Vocabulary in Vocabulary_list %}
-                <li id = "{{ Vocabulary.pk }}">
-                    <a href="{% url 'words:MeaningEditor' Vocabulary.pk %}"><strong><mark>{{Vocabulary.english}}</mark></strong></a>
-                    <button type = "button" class = "btn btn-success" onclick="editVoc(this);">編輯</button>
-                    <button type = "button" class = "btn btn-danger" onclick="delVoc(this);">刪除</button>
-                </li>
+                <tbody>
+                    <tr>
+                        <td><a href="{% url 'words:MeaningEditor' Vocabulary.pk %}"><strong><mark>{{Vocabulary.english}}</mark></strong></a></td>
+                        <td id = "{{ Vocabulary.pk }}"><button type = "button" class = "btn btn-success" onclick="editVoc(this);">編輯</button></td>
+                        <td id = "{{ Vocabulary.pk }}"><button type = "button" class = "btn btn-danger" onclick="delVoc(this);">刪除</button></td>
+                    </tr>
+                </tbody>    
             {% endfor %}
-        </ul>
+        </table>
     {% else %}
         <p>No Vocabulary are available.</p>
     {% endif %}

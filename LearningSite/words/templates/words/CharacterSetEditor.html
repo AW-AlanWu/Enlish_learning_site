@@ -40,15 +40,17 @@
 
 {% block content %}
     {% if CharacterSet_list %}
-        <ul class = "list-unstyled">
+        <table class = "table">
             {% for CharacterSet in CharacterSet_list %}
-                <li id = "{{ CharacterSet.pk }}">
-                    <a href="{% url 'words:VocabularyEditor' CharacterSet.pk %}"><strong><mark>{{CharacterSet.set_name}}</mark></strong></a>
-                    <button type = "button" class = "btn btn-success" onclick="editSet(this);">編輯</button>
-                    <button type = "button" class = "btn btn-danger" onclick="delSet(this);">刪除</button>
-                </li>
+                <tbody>
+                    <tr>
+                        <td><a href="{% url 'words:VocabularyEditor' CharacterSet.pk %}"><strong><mark>{{CharacterSet.set_name}}</mark></strong></a></td>
+                        <td id = "{{ CharacterSet.pk }}"><button type = "button" class = "btn btn-success" onclick="editSet(this);">編輯</button></td>
+                        <td id = "{{ CharacterSet.pk }}"><button type = "button" class = "btn btn-danger" onclick="delSet(this);">刪除</button></td>
+                    </tr>
+                </tbody>
             {% endfor %}
-        </ul>
+        </table>
     {% else %}
         <p>No CharacterSet are available.</p>
     {% endif %}

@@ -26,7 +26,7 @@
         <ul class = "list-unstyled">
             {% for Meaning in Meaning_list %}
                 <li id = "{{ Meaning.pk }}">
-                    <h3>{{ Meaning.chinese }}-{{ Meaning.speech }}
+                    <h3>{{ Meaning.chinese }}&nbsp;--&nbsp;<mark>{{ Meaning.speech }}</mark>
                         <button type = "button" class = "btn btn-danger" onclick="delMeaning(this);">刪除</button></h3>
                     <p><em>例句：</em></p>
                     <p>英：{{ Meaning.enlish_sentences }}</p>
