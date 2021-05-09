@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>WordEditor</title>
+{% extends 'base.html' %}
 
+{% block title %} WordEditor {% endblock %}
+
+{% block script %}
     {% csrf_token %}
     {% load static %}
     <script src="{% static 'js/post_to_url.js' %}"></script>
@@ -33,26 +32,29 @@
             }
         }
     </script>
-</head>
-<body>
-    <h1>字集創建區</h1>
+{% endblock %}
+
+{% block headmessage %}
+<h1>字集創建區</h1>
+{% endblock %}
+
+{% block content %}
     {% if CharacterSet_list %}
-        <ul>
-        {% for CharacterSet in CharacterSet_list %}
-            <li id = "{{ CharacterSet.pk }}"><a href="{% url 'words:VocabularyEditor' CharacterSet.pk %}">{{CharacterSet.set_name}}</a>&nbsp;<button onclick="editSet(this);">編輯</button>&nbsp;<button onclick="delSet(this);">刪除</button></li>
-        {% endfor %}
-        </ul>
+    <ul>
+    {% for CharacterSet in CharacterSet_list %}
+        <li id = "{{ CharacterSet.pk }}"><a href="{% url 'words:VocabularyEditor' CharacterSet.pk %}">{{CharacterSet.set_name}}</a>&nbsp;<button onclick="editSet(this);">編輯</button>&nbsp;<button onclick="delSet(this);">刪除</button></li>
+    {% endfor %}
+    </ul>
     {% else %}
-        <p>No CharacterSet are available.</p>
+    <p>No CharacterSet are available.</p>
     {% endif %}
 
     <form action="{% url 'words:AddSet'%}" method="POST">
-        {% csrf_token %}
-        <p><label for="set">新增字集：</label><input type="text" required name="character_set" id="set"></p>
-        <input type="submit">
+    {% csrf_token %}
+    <p><label for="set">新增字集：</label><input type="text" required name="character_set" id="set"></p>
+    <input type="submit">
     </form>
 
     <p>
-        <input type="button" value="回主頁" onclick="location.href='{% url 'index' %}'">
-</body>
-</html>
+    <input type="button" value="回主頁" onclick="location.href='{% url 'index' %}'">
+{% endblock %}

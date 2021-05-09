@@ -1,58 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{title}}</title>
+{% extends 'base.html' %}
 
+{% block title %} {{title}} {% endblock %}
+
+{% block script %}
     {% csrf_token %}
     {% load static %}
-    <script src="{% static 'js/post_to_url.js' %}"></script>
-    <script>
-        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-        
-        function editVoc(button) {
-            var id = button.parentNode.id;
-            var result = "";
-            while(result === "") {
-                result = prompt("請輸入欲修改的內容");
-                if(result === null)
-                    return;
-                if(result === "")
-                    alert("請輸入內容");
+        <script src="{% static 'js/post_to_url.js' %}"></script>
+        <script>
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            
+            function editVoc(button) {
+                var id = button.parentNode.id;
+                var result = "";
+                while(result === "") {
+                    result = prompt("請輸入欲修改的內容");
+                    if(result === null)
+                        return;
+                    if(result === "")
+                        alert("請輸入內容");
+                }
+                post_to_url("{% url 'words:EditVoc'%}", {'voc_change' : result, 'id' : id});
             }
-            post_to_url("{% url 'words:EditVoc'%}", {'voc_change' : result, 'id' : id});
-        }
 
-        function delVoc(button) {
-            var id = button.parentNode.id;
-            var msg = "您真的確定要刪除嗎？\n\n請確認！";
-            if (confirm(msg)==true){
-                post_to_url("{% url 'words:DelVoc'%}", {'id' : id});
-            } else{
-                return;
+            function delVoc(button) {
+                var id = button.parentNode.id;
+                var msg = "您真的確定要刪除嗎？\n\n請確認！";
+                if (confirm(msg)==true){
+                    post_to_url("{% url 'words:DelVoc'%}", {'id' : id});
+                } else{
+                    return;
+                }
             }
-        }
-    </script>
-</head>
-<body>
-    <h1>單字創建區</h1>
+        </script>
+{% endblock %}
+
+{% block headmessage %}
+<h1>{{title}}</h1>
+{% endblock %}
+
+{% block content %}
     {% if Vocabulary_list %}
-        <ul>
-        {% for Vocabulary in Vocabulary_list %}
-            <li id = "{{ Vocabulary.pk }}"><a href="{% url 'words:MeaningEditor' Vocabulary.pk %}">{{Vocabulary.english}}</a>&nbsp;<button onclick="editVoc(this);">編輯</button>&nbsp;<button onclick="delVoc(this);">刪除</button></li>
-        {% endfor %}
-        </ul>
+    <ul>
+    {% for Vocabulary in Vocabulary_list %}
+        <li id = "{{ Vocabulary.pk }}"><a href="{% url 'words:MeaningEditor' Vocabulary.pk %}">{{Vocabulary.english}}</a>&nbsp;<button onclick="editVoc(this);">編輯</button>&nbsp;<button onclick="delVoc(this);">刪除</button></li>
+    {% endfor %}
+    </ul>
     {% else %}
-        <p>No Vocabulary are available.</p>
+    <p>No Vocabulary are available.</p>
     {% endif %}
 
     <form action="{% url 'words:AddVoc'%}" method="POST">
-        {% csrf_token %}
-        <p><label for="voc">新增單字：</label><input type="text" required name="vocabulary" id="voc"></p>
-        <input type="hidden" name="id" value="{{ Set_id }}">
-        <input type="submit">
+    {% csrf_token %}
+    <p><label for="voc">新增單字：</label><input type="text" required name="vocabulary" id="voc"></p>
+    <input type="hidden" name="id" value="{{ Set_id }}">
+    <input type="submit">
     </form>
     <p>
     <input type="button" value="go back?" onclick="location.href='{% url 'words:CharacterSetEditor' %}'">
-</body>
-</html>
+{% endblock %}
