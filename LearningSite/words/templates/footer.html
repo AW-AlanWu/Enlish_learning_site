@@ -1,14 +1,17 @@
 <!-- footer.html -->
-{% block footer %}
-    <p>{% if num_visits %}
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+        <p><span class="text-muted">
+            {% if num_visits %}
             You have visited this page  {{ num_visits }}
-            {% if num_visits == 1 %} 
-                time
-            {% else %}
-                times
-            {% endif %}.
-        {% endif %}
-    </p>
+                {% if num_visits == 1 %} 
+                    time
+                {% else %}
+                    times
+                {% endif %}.
+            {% endif %}
+        </span></p>
 
-    <p>如有任何問題，請聯絡製作者：alan.92925@gmail.com</p>
-{% endblock %}
+        <p><span class="text-muted">如有任何問題，請聯繫製作者：alan.92925@gmail.com</span></p>
+    </div>
+</footer>
