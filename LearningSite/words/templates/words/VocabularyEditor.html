@@ -40,21 +40,25 @@
 
 {% block content %}
     {% if Vocabulary_list %}
-    <ul>
-    {% for Vocabulary in Vocabulary_list %}
-        <li id = "{{ Vocabulary.pk }}"><a href="{% url 'words:MeaningEditor' Vocabulary.pk %}">{{Vocabulary.english}}</a>&nbsp;<button onclick="editVoc(this);">編輯</button>&nbsp;<button onclick="delVoc(this);">刪除</button></li>
-    {% endfor %}
-    </ul>
+        <ul class = "list-unstyled">
+            {% for Vocabulary in Vocabulary_list %}
+                <li id = "{{ Vocabulary.pk }}">
+                    <a href="{% url 'words:MeaningEditor' Vocabulary.pk %}"><strong><mark>{{Vocabulary.english}}</mark></strong></a>
+                    <button type = "button" class = "btn btn-success" onclick="editVoc(this);">編輯</button>
+                    <button type = "button" class = "btn btn-danger" onclick="delVoc(this);">刪除</button>
+                </li>
+            {% endfor %}
+        </ul>
     {% else %}
-    <p>No Vocabulary are available.</p>
+        <p>No Vocabulary are available.</p>
     {% endif %}
 
     <form action="{% url 'words:AddVoc'%}" method="POST">
-    {% csrf_token %}
-    <p><label for="voc">新增單字：</label><input type="text" required name="vocabulary" id="voc"></p>
-    <input type="hidden" name="id" value="{{ Set_id }}">
-    <input type="submit">
+        {% csrf_token %}
+        <p><label for="voc">新增單字：</label><input type="text" required name="vocabulary" id="voc"></p>
+        <input type="hidden" name="id" value="{{ Set_id }}">
+        <input type="submit">
     </form>
     <p>
-    <input type="button" value="go back?" onclick="location.href='{% url 'words:CharacterSetEditor' %}'">
+    <input type = "button" class = "btn btn-outline-link" value="回上頁?" onclick="location.href='{% url 'words:CharacterSetEditor' %}'">
 {% endblock %}
