@@ -1,2 +1,2 @@
 @ECHO OFF
-start .\vm\Scripts\activate.bat
+start .\vm\Scripts\activate
