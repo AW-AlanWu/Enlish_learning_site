@@ -29,7 +29,7 @@
                     <h3>{{ Meaning.chinese }}&nbsp;--&nbsp;<mark>{{ Meaning.speech }}</mark>
                         <button type = "button" class = "btn btn-danger" onclick="delMeaning(this);">刪除</button></h3>
                     <p><em>例句：</em></p>
-                    <p>英：{{ Meaning.enlish_sentences }}</p>
+                    <p>英：{{ Meaning.english_sentences }}</p>
                     <p>中：{{ Meaning.chinese_sentences }}</p>
                 </li>
             {% endfor %}
@@ -88,5 +88,5 @@
     </form>
 
     <p>
-    <input type = "button" class = "btn btn-outline-link" value="回上頁?" onclick="location.href='{% url 'words:VocabularyEditor' Set_id %}'">
+    <input type = "button" class = "btn btn-lg btn-primary" value="回上頁?" onclick="location.href='{% url 'words:VocabularyEditor' Set_id %}'">
 {% endblock %}

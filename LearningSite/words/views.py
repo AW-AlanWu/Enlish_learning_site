@@ -79,7 +79,7 @@ def AddVoc(request):
 def AddMeaning(request):
     args = request.POST['id']
     Voc = get_object_or_404(Vocabulary, pk=args)
-    Mean = Meaning(chinese = request.POST['meaning'], chinese_sentences = request.POST['chinese_sentences'], enlish_sentences = request.POST['english_sentences'], speech = request.POST['speech'], vocabulary = Voc)
+    Mean = Meaning(chinese = request.POST['meaning'], chinese_sentences = request.POST['chinese_sentences'], english_sentences = request.POST['english_sentences'], speech = request.POST['speech'], vocabulary = Voc)
     Mean.save()
     return HttpResponseRedirect(reverse('words:MeaningEditor', args=(args,)))
 

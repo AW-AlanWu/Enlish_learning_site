@@ -34,7 +34,7 @@ class Meaning(models.Model):
 
     chinese = models.CharField(max_length = 50)
     chinese_sentences = models.CharField(max_length = 250)
-    enlish_sentences = models.CharField(max_length = 250)
+    english_sentences = models.CharField(max_length = 250)
     speech = models.CharField(
         max_length = 4,
         choices = SPEECH_CHOICES,
