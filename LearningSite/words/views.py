@@ -97,3 +97,19 @@ def DelMeaning(request):
     args = Mean.vocabulary_id
     Mean.delete()
     return HttpResponseRedirect(reverse('words:MeaningEditor', args=(args,)))
+
+def index(request):
+    num_visits = request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits + 1
+
+    context = {
+        'num_visits': num_visits,
+    }
+
+    return render(request, 'words/index.html', context=context)
+
+def Login(request):
+    return render(request, 'words/Login.html')
+
+def Sign_up(request):
+    return render(request, 'words/register.html')

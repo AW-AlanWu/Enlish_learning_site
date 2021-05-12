@@ -2,7 +2,7 @@
 
 {% block title %} {{title}} {% endblock %}
 
-{% block script %}
+{% block reference %}
     {% csrf_token %}
     {% load static %}
         <script src="{% static 'js/post_to_url.js' %}"></script>
