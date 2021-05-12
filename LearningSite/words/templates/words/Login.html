@@ -1,18 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
+{% extends 'base.html' %}
 
-    <!-- Font Icon -->
+{% block title %} Login {% endblock %}
+
+{% block reference %}
     {% load static %}
+    <!-- Font Icon -->
     <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
 
     <!-- Main css -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
+{% endblock %}
 
+{% block content %}
     <div class="main">
         <!-- Sing in  Form -->
         <section class="sign-in">
@@ -20,7 +19,7 @@
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure><img src="{% static 'images/signin-image.png' %}" alt="sing up image"></figure>
-                        <a href="#" class="signup-image-link">Create an account</a>
+                        <a href="{% url 'Sign_up' %}" class="signup-image-link">Create an account</a>
                     </div>
 
                     <div class="signin-form">
@@ -47,5 +46,4 @@
             </div>
         </section>
     </div>
-</body>
-</html>
+{% endblock %}
