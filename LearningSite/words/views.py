@@ -1,9 +1,12 @@
+from django.http.response import HttpResponseServerError
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from .models import CharacterSet, Vocabulary, Meaning
-from .forms import CharacterSetModelForm, VocabularySetModelForm, MeaningSetModelForm
+from .forms import CharacterSetModelForm, VocabularySetModelForm, MeaningSetModelForm, RegisterForm
+from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 def index(request):
     num_visits = request.session.get('num_visits', 0)
@@ -112,4 +115,27 @@ def Login(request):
     return render(request, 'words/Login.html')
 
 def Sign_up(request):
-    return render(request, 'words/register.html')
+    form = RegisterForm()
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'words/register.html', context)
+
+#username: afd
+#email: asdfa@dasf
+#password1: asf
+#password2: afsdf
+#agree-term: on
+#signup: Register
+def saveAccount(request):
+    user = User.objects.create_user(
+        request.POST['username'],
+        request.POST['email'],
+        request.POST['password1'],
+    )
+    user.save()
+
+    return HttpResponseRedirect(reverse('Login'))
+    

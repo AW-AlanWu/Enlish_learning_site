@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from words.views import index, Login, Sign_up
+from words.views import index, Login, Sign_up, saveAccount
 
 urlpatterns = [
     path('words/', include('words.urls')),
@@ -23,4 +23,5 @@ urlpatterns = [
     path('', index, name='index'),
     path('Login/', Login, name='Login'),
     path('register/', Sign_up, name='Sign_up'),
+    path('register/saveAccount', saveAccount, name='saveAccount'),
 ]
