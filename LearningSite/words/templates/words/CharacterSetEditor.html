@@ -8,6 +8,7 @@
     <script src="{% static 'js/post_to_url.js' %}"></script>
     <script>
         const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        const rule = /[\u4e00-\u9fa5_a-zA-Z0-9]+$/
 
         function editSet(button) {
             var id = button.parentNode.id;
@@ -18,6 +19,9 @@
                     return;
                 if(result === "")
                     alert("請輸入內容");
+                if(!rule.test(result))
+                    alert("字集名稱內不可包含特殊字元");
+                    result = "";
             }
             post_to_url("{% url 'words:EditSet'%}", {'set_change' : result, 'id' : id});
         }

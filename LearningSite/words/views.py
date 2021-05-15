@@ -1,6 +1,6 @@
 from django.http.response import HttpResponseServerError
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views import generic
 from .models import CharacterSet, Vocabulary, Meaning
 from .forms import CharacterSetModelForm, VocabularySetModelForm, MeaningSetModelForm, RegisterForm
@@ -130,12 +130,13 @@ def Sign_up(request):
 #agree-term: on
 #signup: Register
 def saveAccount(request):
-    user = User.objects.create_user(
-        request.POST['username'],
-        request.POST['email'],
-        request.POST['password1'],
-    )
-    user.save()
-
-    return HttpResponseRedirect(reverse('Login'))
-    
+    if User.objects.filter(username = request.POST['username']) and User.objects.filter(email = request.POST['email']):
+        raise Http404("username or email already exists")
+    else:
+        user = User.objects.create_user(
+            request.POST['username'],
+            request.POST['email'],
+            request.POST['password1'],
+        )
+        user.save()
+        return HttpResponseRedirect(reverse('Login'))

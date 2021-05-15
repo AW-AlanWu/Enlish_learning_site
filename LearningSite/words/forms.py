@@ -9,7 +9,7 @@ class CharacterSetModelForm(forms.ModelForm):
         fields = '__all__'
 
         widgets = {
-            'set_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '請輸入字集'})
+            'set_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '請輸入字集', 'pattern': "[\u4e00-\u9fa5_a-zA-Z0-9]+$", 'title': '字集名稱內不可包含特殊字元'})
         }
 
         labels = {
@@ -22,7 +22,7 @@ class VocabularySetModelForm(forms.ModelForm):
         exclude = ['character_set']
 
         widgets = {
-            'english': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '請輸入單字'})
+            'english': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '請輸入單字', 'pattern': "[a-zA-Z]+$", 'title': '單字只可由英文大小寫組成'})
         }
 
         labels = {
@@ -35,7 +35,7 @@ class MeaningSetModelForm(forms.ModelForm):
         exclude = ['vocabulary']
 
         widgets = {
-            'chinese': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '請輸入中文解釋'}),
+            'chinese': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '請輸入中文解釋', 'pattern': "[a-zA-Z\u4e00-\u9fa5;]+$", 'title': '解釋只可由大小寫英文和中文以及分號組成'}),
             'chinese_sentences': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '請輸入例句(中)'}),
             'english_sentences': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '請輸入例句(英)'}),
             'speech': forms.Select(attrs={'class': 'form-control', 'placeholder': '請輸入例句(英)'})
@@ -50,7 +50,7 @@ class MeaningSetModelForm(forms.ModelForm):
 
 class RegisterForm(UserCreationForm):
     username = forms.CharField(
-        widget=forms.TextInput(attrs={'type': 'text', 'name': 'name', 'id': 'name', 'placeholder': 'Your Name', 'pattern': "\w{6,24}", 'title': '帳號名稱內不可含有特殊字元'})
+        widget=forms.TextInput(attrs={'type': 'text', 'name': 'name', 'id': 'name', 'placeholder': 'Your Name', 'pattern': "^[a-zA-Z][0-9a-zA-Z_]*", 'title': '帳號名稱開頭不可為數字且內容不可含有特殊字元'})
     )
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={'type': 'email', 'name': 'email', 'id': 'email', 'placeholder': 'Your Email'})

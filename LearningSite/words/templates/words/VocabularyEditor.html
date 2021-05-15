@@ -8,6 +8,7 @@
         <script src="{% static 'js/post_to_url.js' %}"></script>
         <script>
             const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            const rule = /[a-zA-Z]+$/
             
             function editVoc(button) {
                 var id = button.parentNode.id;
@@ -18,6 +19,9 @@
                         return;
                     if(result === "")
                         alert("請輸入內容");
+                    if(!rule.test(result))
+                        alert("單字只可由英文大小寫組成");
+                        result = "";
                 }
                 post_to_url("{% url 'words:EditVoc'%}", {'voc_change' : result, 'id' : id});
             }
