@@ -61,6 +61,11 @@ class RegisterForm(UserCreationForm):
     password2 = forms.CharField(
         widget=forms.PasswordInput(attrs={'type': 'password', 'name': 're_pass', 'id': 're_pass', 'placeholder': 'Repeat your password', 'pattern': "^((?=.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*|(?=.{8,}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!\u0022#$%&'()*+,./:;<=>?@[\]\^_`{|}~-]).*)", 'minlength': '8', 'title': '請最少輸入8位以上的大小寫英文與數字以及特殊符號'})
     )
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password1', 'password2')
+
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'type': 'text', 'name': 'your_name', 'id': 'your_name', 'placeholder': 'Your Name'})
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'type': 'password', 'name': 'your_pass', 'id': 'your_pass', 'placeholder': 'Password'})
+    )

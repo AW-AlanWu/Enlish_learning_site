@@ -3,21 +3,26 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views import generic
 from .models import CharacterSet, Vocabulary, Meaning
-from .forms import CharacterSetModelForm, VocabularySetModelForm, MeaningSetModelForm, RegisterForm
+from .forms import CharacterSetModelForm, VocabularySetModelForm, MeaningSetModelForm, RegisterForm, LoginForm
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.contrib.auth.models import User
 
 def index(request):
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
-
+    
     context = {
         'num_visits': num_visits,
     }
+    if request.user.is_authenticated:
+        context['is_authenticated'] = request.user.is_authenticated
 
     return render(request, 'words/index.html', context=context)
 
+@login_required(login_url="Login")
 def CharacterSetEditor(request):
     CharacterSet_list = CharacterSet.objects.order_by('-pk')
     form =  CharacterSetModelForm()
@@ -25,8 +30,11 @@ def CharacterSetEditor(request):
         'CharacterSet_list': CharacterSet_list,
         'form': form
     }
+    if request.user.is_authenticated:
+        context['is_authenticated'] = request.user.is_authenticated
     return render(request, 'words/CharacterSetEditor.html', context)
 
+@login_required(login_url="Login")
 def VocabularyEditor(request, set_id):
     object = get_object_or_404(CharacterSet, pk=set_id)
     Vocabulary_list = object.vocabulary_set.order_by('-pk')
@@ -37,8 +45,11 @@ def VocabularyEditor(request, set_id):
         'Set_id': object.pk,
         'form': form
     }
+    if request.user.is_authenticated:
+        context['is_authenticated'] = request.user.is_authenticated
     return render(request, 'words/VocabularyEditor.html', context)
 
+@login_required(login_url="Login")
 def MeaningEditor(request, voc_id):
     object = get_object_or_404(Vocabulary, pk=voc_id)
     Meaning_list = object.meaning_set.order_by('-pk')
@@ -50,30 +61,37 @@ def MeaningEditor(request, voc_id):
         'Set_id': object.character_set.pk,
         'form': form
     }
+    if request.user.is_authenticated:
+        context['is_authenticated'] = request.user.is_authenticated
     return render(request, 'words/MeaningEditor.html', context)
 
+@login_required(login_url="Login")
 def DelSet(request):
     Set = get_object_or_404(CharacterSet, pk=request.POST['id'])
     Set.delete()
     return HttpResponseRedirect(reverse('words:CharacterSetEditor'))
 
+@login_required(login_url="Login")
 def EditSet(request):
     Set = get_object_or_404(CharacterSet, pk=request.POST['id'])
     Set.set_name = request.POST['set_change']
     Set.save()
     return HttpResponseRedirect(reverse('words:CharacterSetEditor'))
 
+@login_required(login_url="Login")
 def AddSet(request):
     Set = CharacterSet(set_name = request.POST['set_name'])
     Set.save()
     return HttpResponseRedirect(reverse('words:CharacterSetEditor'))
 
+@login_required(login_url="Login")
 def DelVoc(request):
     Voc = get_object_or_404(Vocabulary, pk=request.POST['id'])
     args = Voc.character_set_id
     Voc.delete()
     return HttpResponseRedirect(reverse('words:VocabularyEditor', args=(args,)))
     
+@login_required(login_url="Login")
 def EditVoc(request):
     Voc = get_object_or_404(Vocabulary, pk=request.POST['id'])
     Voc.english = request.POST['voc_change']
@@ -81,6 +99,7 @@ def EditVoc(request):
     args = Voc.character_set_id
     return HttpResponseRedirect(reverse('words:VocabularyEditor', args=(args,)))
 
+@login_required(login_url="Login")
 def AddVoc(request):
     args = request.POST['id']
     Set = get_object_or_404(CharacterSet, pk=args)
@@ -88,6 +107,7 @@ def AddVoc(request):
     Voc.save()
     return HttpResponseRedirect(reverse('words:VocabularyEditor', args=(args,)))
 
+@login_required(login_url="Login")
 def AddMeaning(request):
     args = request.POST['id']
     Voc = get_object_or_404(Vocabulary, pk=args)
@@ -95,24 +115,21 @@ def AddMeaning(request):
     Mean.save()
     return HttpResponseRedirect(reverse('words:MeaningEditor', args=(args,)))
 
+@login_required(login_url="Login")
 def DelMeaning(request):
     Mean = get_object_or_404(Meaning, pk=request.POST['id'])
     args = Mean.vocabulary_id
     Mean.delete()
     return HttpResponseRedirect(reverse('words:MeaningEditor', args=(args,)))
 
-def index(request):
-    num_visits = request.session.get('num_visits', 0)
-    request.session['num_visits'] = num_visits + 1
-
-    context = {
-        'num_visits': num_visits,
-    }
-
-    return render(request, 'words/index.html', context=context)
-
 def Login(request):
-    return render(request, 'words/Login.html')
+    form = LoginForm()
+    context = {
+        'form': form
+    }
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('index'))
+    return render(request, 'words/Login.html', context)
 
 def Sign_up(request):
     form = RegisterForm()
@@ -120,15 +137,10 @@ def Sign_up(request):
     context = {
         'form': form
     }
-
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('index'))
     return render(request, 'words/register.html', context)
 
-#username: afd
-#email: asdfa@dasf
-#password1: asf
-#password2: afsdf
-#agree-term: on
-#signup: Register
 def saveAccount(request):
     if User.objects.filter(username = request.POST['username']) and User.objects.filter(email = request.POST['email']):
         raise Http404("username or email already exists")
@@ -140,3 +152,17 @@ def saveAccount(request):
         )
         user.save()
         return HttpResponseRedirect(reverse('Login'))
+
+def authenticateAccount(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return HttpResponseRedirect(reverse('index'))
+    else:
+        raise Http404("The account does not exist")
+
+def log_out(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('Login'))
