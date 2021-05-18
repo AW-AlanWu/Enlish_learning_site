@@ -53,7 +53,7 @@ class RegisterForm(UserCreationForm):
         widget=forms.TextInput(attrs={'type': 'text', 'name': 'name', 'id': 'name', 'placeholder': 'Your Name', 'pattern': "^[a-zA-Z][0-9a-zA-Z_]*", 'title': '帳號名稱開頭不可為數字且內容不可含有特殊字元'})
     )
     email = forms.EmailField(
-        widget=forms.EmailInput(attrs={'type': 'email', 'name': 'email', 'id': 'email', 'placeholder': 'Your Email'})
+        widget=forms.EmailInput(attrs={'type': 'email', 'name': 'email', 'id': 'email', 'placeholder': 'Your Email', 'pattern': "^\w+((-\w+)|(\.\w+))*[@][A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]{2,4}$", 'title': '此電子郵件地址無效。請務必確認其格式為 example@email.com'})
     )
     password1 = forms.CharField(
         widget=forms.PasswordInput(attrs={'type': 'password', 'name': 'pass', 'id': 'pass', 'placeholder': 'Password', 'pattern': "^((?=.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*|(?=.{8,}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!\u0022#$%&'()*+,./:;<=>?@[\]\^_`{|}~-]).*)", 'minlength': '8', 'title': '請最少輸入8位以上的大小寫英文與數字以及特殊符號'})
