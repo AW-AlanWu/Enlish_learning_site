@@ -15,13 +15,16 @@
                 var result = "";
                 while(result === "") {
                     result = prompt("請輸入欲修改的內容");
-                    if(result === null)
+                    if(result === null) {
                         return;
-                    if(result === "")
+                    }
+                    if(result === "") {
                         alert("請輸入內容");
-                    if(!rule.test(result))
+                    }
+                    if(!rule.test(result)) {
                         alert("單字只可由英文大小寫組成");
                         result = "";
+                    }
                 }
                 post_to_url("{% url 'words:EditVoc'%}", {'voc_change' : result, 'id' : id});
             }
