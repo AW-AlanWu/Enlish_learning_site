@@ -15,4 +15,5 @@ urlpatterns = [
     path('WordEditor/voc/EditVoc/', views.EditVoc, name='EditVoc'),
     path('WordEditor/voc/AddMeaning/', views.AddMeaning, name='AddMeaning'),
     path('WordEditor/voc/DelMeaning/', views.DelMeaning, name='DelMeaning'),
+    path('WordEditor/voc/FetchMeaning/', views.FetchMeaning, name='FetchMeaning'),
 ]

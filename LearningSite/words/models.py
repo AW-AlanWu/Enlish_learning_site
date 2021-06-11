@@ -20,6 +20,7 @@ class Meaning(models.Model):
     preposition = 'prep'
     conjunction = 'conj'
     interjection = 'int'
+    auxiliaryVerb = 'aux'
 
     SPEECH_CHOICES = [
         (noun, 'n.'),
@@ -30,13 +31,14 @@ class Meaning(models.Model):
         (preposition, 'prep.'),
         (conjunction, 'conj.'),
         (interjection, 'int.'),
+        (auxiliaryVerb, 'aux.'),
     ]
 
     chinese = models.CharField(max_length = 50)
     chinese_sentences = models.CharField(max_length = 250)
     english_sentences = models.CharField(max_length = 250)
     speech = models.CharField(
-        max_length = 4,
+        max_length = 5,
         choices = SPEECH_CHOICES,
         blank = False
     )

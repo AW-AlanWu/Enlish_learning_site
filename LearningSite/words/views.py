@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.contrib.auth.models import User
+from .spider import fetchMeaning
 
 def index(request):
     num_visits = request.session.get('num_visits', 0)
@@ -166,3 +167,12 @@ def authenticateAccount(request):
 def log_out(request):
     logout(request)
     return HttpResponseRedirect(reverse('Login'))
+
+@login_required(login_url="Login")
+def FetchMeaning(request):
+    args = request.POST['id']
+    Voc = get_object_or_404(Vocabulary, pk=args)
+    msg = fetchMeaning(request.POST['voc'], Voc)
+    if msg != "success":
+        raise Http404(msg)
+    return HttpResponseRedirect(reverse('words:MeaningEditor', args=(args,)))

@@ -18,6 +18,18 @@
                 return;
             }
         }
+
+        function fetchMeaning(button) {
+            var voc = document.getElementById("title").text;
+            var id = button.id;
+            
+            var msg = "接下來將會到網路字典抓取字義？\n\n請確認是否執行該動作！";
+            if (confirm(msg)==true){
+                post_to_url("{% url 'words:FetchMeaning'%}", {'id' : id, 'voc' : voc});
+            } else{
+                return;
+            }
+        }
     </script>
 {% endblock %}
 
@@ -36,6 +48,7 @@
         </ul>
     {% else %}
         <h1>No Meaning are available.</h1>
+        <button type = "button" id = "{{ Voc_id }}" class = "btn btn-outline-primary" onclick="fetchMeaning(this);">自動產生Meaning?</button></h3>
     {% endif %}
 
     
