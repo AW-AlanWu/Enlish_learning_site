@@ -49,37 +49,26 @@
 
 ### 首頁
 
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/1.png)
+>> (登入前)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/index(logout).png)
 
->> (重新刷新首頁)
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/2.png)
-
->> (多次刷新首頁後)
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/3.png)
+>> (登入後)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/index(login).png)
 
 ### 字集創建區
 
->> (無字集)
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/4.png)
-
->> (有一字集)
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/5.png)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/CharacterSetEditor.png)
 
 ### 單字創建區
 
->> (無單字)
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/6.png)
-
->> (有一單字)
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/7.png)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/VocabularyEditor.png)
 
 ### 解釋創建區
 
 >> (無解釋)
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/8.png)
-
->> (有一解釋)
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/9.png)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/MeaningEditor.png)
+>> (按下"自動產生Meaning")
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/MeaningEditor(Auto_get_Meaning).png)
 
 <!--admin_site：
 Username=admin
