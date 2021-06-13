@@ -1,98 +1,89 @@
 {% extends 'base.html' %}
-
 {% block title %} {{title}} {% endblock %}
-
 {% block reference %}
-    {% csrf_token %}
-    {% load static %}
-    <script src="{% static 'js/post_to_url.js' %}"></script>
-    <script>
-        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-        function delMeaning(button) {
-            var id = button.parentNode.id;
-            var msg = "您真的確定要刪除嗎？\n\n請確認！";
-            if (confirm(msg)==true){
-                post_to_url("{% url 'words:DelMeaning'%}", {'id' : id});
-            } else{
-                return;
-            }
-        }
-
-        function fetchMeaning(button) {
-            var voc = document.getElementById("title").text;
-            var id = button.id;
-            
-            var msg = "接下來將會到網路字典抓取字義？\n\n請確認是否執行該動作！";
-            if (confirm(msg)==true){
-                post_to_url("{% url 'words:FetchMeaning'%}", {'id' : id, 'voc' : voc});
-            } else{
-                return;
-            }
-        }
-    </script>
+{% csrf_token %}
+{% load static %}
+<script src="{% static 'js/post_to_url.js' %}"></script>
+<script>
+	const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+	
+	function delMeaning(button) {
+	    var id = button.parentNode.id;
+	    var msg = "您真的確定要刪除嗎？\n\n請確認！";
+	    if (confirm(msg)==true){
+	        post_to_url("{% url 'words:DelMeaning'%}", {'id' : id});
+	    } else{
+	        return;
+	    }
+	}
+	
+	function fetchMeaning(button) {
+	    var voc = document.getElementById("title").text;
+	    var id = button.id;
+	    
+	    var msg = "接下來將會到網路字典抓取字義？\n\n請確認是否執行該動作！";
+	    if (confirm(msg)==true){
+	        post_to_url("{% url 'words:FetchMeaning'%}", {'id' : id, 'voc' : voc});
+	    } else{
+	        return;
+	    }
+	}
+</script>
 {% endblock %}
-
 {% block content %}
-    {% if Meaning_list %}
-        <ul class = "list-unstyled">
-            {% for Meaning in Meaning_list %}
-                <li>
-                    <h3 id = "{{ Meaning.pk }}">{{ Meaning.chinese }}&nbsp;--&nbsp;<mark>{{ Meaning.speech }}</mark>
-                        <button type = "button" class = "btn btn-danger" onclick="delMeaning(this);">刪除</button></h3>
-                    <p><em>例句：</em></p>
-                    <p>英：{{ Meaning.english_sentences }}</p>
-                    <p>中：{{ Meaning.chinese_sentences }}</p>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <h1>No Meaning are available.</h1>
-        <button type = "button" id = "{{ Voc_id }}" class = "btn btn-outline-primary" onclick="fetchMeaning(this);">自動產生Meaning?</button></h3>
-    {% endif %}
-
-    
-    <div class="text-muted"><h3 class = "text-center"><strong>下方新增解釋</strong></h3></div>
-    
-    <form class = "form-horizontal" action="{% url 'words:AddMeaning'%}" method="POST">
-        {% csrf_token %}
-        <div class = "form-group">
-            <label class = "col-sm-2 control-label">{{ form.chinese.label }}</label>
-            <div class = "col-sm-10">
-                {{ form.chinese }}
-            </div>
-        </div>
-
-        <div class = "form-group">
-            <label class = "col-sm-2 control-label">{{ form.english_sentences.label }}</label>
-            <div class = "col-sm-10">
-                {{ form.english_sentences }}
-            </div>
-        </div>
-
-        <div class = "form-group">
-            <label class = "col-sm-2 control-label">{{ form.chinese_sentences.label }}</label>
-            <div class = "col-sm-10">
-                {{ form.chinese_sentences }}
-            </div>
-        </div>
-        
-        <div class = "form-group">
-            <label class = "col-sm-2 control-label" >{{ form.speech.label }}</label>
-            <div class = "col-sm-10">
-                {{ form.speech }}
-            </div>
-        </div>
-
-        <input type="hidden" name="id" value="{{ Voc_id }}">
-
-        <div class = "form-group">
-            <div class = "col-sm-offset-2 col-sm-10">
-                <button type="submit" class = "btn btn-success">提交</button>
-            </div>
-        </div>
-    </form>
-
-    <p>
-    <input type = "button" class = "btn btn-lg btn-primary" value="回上頁?" onclick="location.href='{% url 'words:VocabularyEditor' Set_id %}'">
+{% if Meaning_list %}
+<ul class = "list-unstyled">
+	{% for Meaning in Meaning_list %}
+	<li>
+		<h3 id = "{{ Meaning.pk }}">{{ Meaning.chinese }}&nbsp;--&nbsp;<mark>{{ Meaning.speech }}</mark>
+			<button type = "button" class = "btn btn-danger" onclick="delMeaning(this);">刪除</button>
+		</h3>
+		<p><em>例句：</em></p>
+		<p>英：{{ Meaning.english_sentences }}</p>
+		<p>中：{{ Meaning.chinese_sentences }}</p>
+	</li>
+	{% endfor %}
+</ul>
+{% else %}
+<h1>No Meaning are available.</h1>
+<button type = "button" id = "{{ Voc_id }}" class = "btn btn-outline-primary" onclick="fetchMeaning(this);">自動產生Meaning?</button></h3>
+{% endif %}
+<div class="text-muted">
+	<h3 class = "text-center"><strong>下方新增解釋</strong></h3>
+</div>
+<form class = "form-horizontal" action="{% url 'words:AddMeaning'%}" method="POST">
+	{% csrf_token %}
+	<div class = "form-group">
+		<label class = "col-sm-2 control-label">{{ form.chinese.label }}</label>
+		<div class = "col-sm-10">
+			{{ form.chinese }}
+		</div>
+	</div>
+	<div class = "form-group">
+		<label class = "col-sm-2 control-label">{{ form.english_sentences.label }}</label>
+		<div class = "col-sm-10">
+			{{ form.english_sentences }}
+		</div>
+	</div>
+	<div class = "form-group">
+		<label class = "col-sm-2 control-label">{{ form.chinese_sentences.label }}</label>
+		<div class = "col-sm-10">
+			{{ form.chinese_sentences }}
+		</div>
+	</div>
+	<div class = "form-group">
+		<label class = "col-sm-2 control-label" >{{ form.speech.label }}</label>
+		<div class = "col-sm-10">
+			{{ form.speech }}
+		</div>
+	</div>
+	<input type="hidden" name="id" value="{{ Voc_id }}">
+	<div class = "form-group">
+		<div class = "col-sm-offset-2 col-sm-10">
+			<button type="submit" class = "btn btn-success">提交</button>
+		</div>
+	</div>
+</form>
+<p>
+	<input type = "button" class = "btn btn-lg btn-primary" value="回上頁?" onclick="location.href='{% url 'words:VocabularyEditor' Set_id %}'">
 {% endblock %}

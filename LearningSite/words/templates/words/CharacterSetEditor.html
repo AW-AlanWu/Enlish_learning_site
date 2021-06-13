@@ -1,76 +1,70 @@
 {% extends 'base.html' %}
-
 {% block title %} WordEditor {% endblock %}
-
 {% block reference %}
-    {% csrf_token %}
-    {% load static %}
-    <script src="{% static 'js/post_to_url.js' %}"></script>
-    <script>
-        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-        const rule = /[\u4e00-\u9fa5_a-zA-Z0-9]+$/
-
-        function editSet(button) {
-            var id = button.parentNode.id;
-            var result = "";
-            while(result === "") {
-                result = prompt("請輸入欲修改的內容");
-                if(result === null) {
-                    return;
-                }
-                if(result === "") {
-                    alert("請輸入內容");
-                }
-                if(!rule.test(result)) {
-                    alert("字集名稱內不可包含特殊字元");
-                    result = "";
-                }
-            }
-            post_to_url("{% url 'words:EditSet'%}", {'set_change' : result, 'id' : id});
-        }
-
-        function delSet(button) {
-            var id = button.parentNode.id;
-            var msg = "您真的確定要刪除嗎？\n\n請確認！";
-            if (confirm(msg)==true){
-                post_to_url("{% url 'words:DelSet'%}", {'id' : id});
-            } else{
-                return;
-            }
-        }
-    </script>
+{% csrf_token %}
+{% load static %}
+<script src="{% static 'js/post_to_url.js' %}"></script>
+<script>
+	const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+	const rule = /[\u4e00-\u9fa5_a-zA-Z0-9]+$/
+	
+	function editSet(button) {
+	    var id = button.parentNode.id;
+	    var result = "";
+	    while(result === "") {
+	        result = prompt("請輸入欲修改的內容");
+	        if(result === null) {
+	            return;
+	        }
+	        if(result === "") {
+	            alert("請輸入內容");
+	        }
+	        if(!rule.test(result)) {
+	            alert("字集名稱內不可包含特殊字元");
+	            result = "";
+	        }
+	    }
+	    post_to_url("{% url 'words:EditSet'%}", {'set_change' : result, 'id' : id});
+	}
+	
+	function delSet(button) {
+	    var id = button.parentNode.id;
+	    var msg = "您真的確定要刪除嗎？\n\n請確認！";
+	    if (confirm(msg)==true){
+	        post_to_url("{% url 'words:DelSet'%}", {'id' : id});
+	    } else{
+	        return;
+	    }
+	}
+</script>
 {% endblock %}
-
 {% block headmessage %}
 <h1>字集創建區</h1>
 {% endblock %}
-
 {% block content %}
-    {% if CharacterSet_list %}
-        <table class = "table">
-            {% for CharacterSet in CharacterSet_list %}
-                <tbody>
-                    <tr>
-                        <td><a href="{% url 'words:VocabularyEditor' CharacterSet.pk %}"><strong><mark>{{CharacterSet.set_name}}</mark></strong></a></td>
-                        <td id = "{{ CharacterSet.pk }}"><button type = "button" class = "btn btn-success" onclick="editSet(this);">編輯</button></td>
-                        <td id = "{{ CharacterSet.pk }}"><button type = "button" class = "btn btn-danger" onclick="delSet(this);">刪除</button></td>
-                    </tr>
-                </tbody>
-            {% endfor %}
-        </table>
-    {% else %}
-        <h5>No CharacterSet are available.</h5>
-    {% endif %}
-
-    <form class = "form-inline" action="{% url 'words:AddSet'%}" method="POST">
-        {% csrf_token %}
-        <div class = "form-group">
-            <label>{{ form.set_name.label }}</label>
-            {{ form.set_name }}
-        </div>
-
-        <div class = "form-group">
-            <button type="submit" class = "btn btn-success">提交</button>
-        </div>
-    </form>
+{% if CharacterSet_list %}
+<table class = "table">
+	{% for CharacterSet in CharacterSet_list %}
+	<tbody>
+		<tr>
+			<td><a href="{% url 'words:VocabularyEditor' CharacterSet.pk %}"><strong><mark>{{CharacterSet.set_name}}</mark></strong></a></td>
+			<td id = "{{ CharacterSet.pk }}"><button type = "button" class = "btn btn-success" onclick="editSet(this);">編輯</button></td>
+			<td id = "{{ CharacterSet.pk }}"><button type = "button" class = "btn btn-danger" onclick="delSet(this);">刪除</button></td>
+		</tr>
+	</tbody>
+	{% endfor %}
+</table>
+{% else %}
+<h5>No CharacterSet are available.</h5>
+{% endif %}
+<form class = "form-inline" action="{% url 'words:AddSet'%}" method="POST">
+	{% csrf_token %}
+	<div class = "form-group">
+		<label>{{ form.set_name.label }}</label>
+		{{ form.set_name }}
+	</div>
+	<div class = "form-group">
+		<button type="submit" class = "btn btn-success">提交</button>
+	</div>
+</form>
 {% endblock %}

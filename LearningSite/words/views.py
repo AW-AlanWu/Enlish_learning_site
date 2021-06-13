@@ -176,3 +176,16 @@ def FetchMeaning(request):
     if msg != "success":
         raise Http404(msg)
     return HttpResponseRedirect(reverse('words:MeaningEditor', args=(args,)))
+
+@login_required(login_url="Login")
+def UserProfile(request, info):
+    context = {}
+    if request.user.is_authenticated:
+        context['is_authenticated'] = request.user.is_authenticated
+    
+    if info == "CharacterSet":
+        return render(request, 'words/UserProfile.html', context)
+    elif info == "score":
+        return render(request, 'words/UserProfile.html', context)
+    else:
+       raise Http404("This site does not exist")

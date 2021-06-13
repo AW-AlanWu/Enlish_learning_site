@@ -1,80 +1,73 @@
 {% extends 'base.html' %}
-
 {% block title %} {{title}} {% endblock %}
-
 {% block reference %}
-    {% csrf_token %}
-    {% load static %}
-        <script src="{% static 'js/post_to_url.js' %}"></script>
-        <script>
-            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-            const rule = /[a-zA-Z]+$/
-            
-            function editVoc(button) {
-                var id = button.parentNode.id;
-                var result = "";
-                while(result === "") {
-                    result = prompt("請輸入欲修改的內容");
-                    if(result === null) {
-                        return;
-                    }
-                    if(result === "") {
-                        alert("請輸入內容");
-                    }
-                    if(!rule.test(result)) {
-                        alert("單字只可由英文大小寫組成");
-                        result = "";
-                    }
-                }
-                post_to_url("{% url 'words:EditVoc'%}", {'voc_change' : result, 'id' : id});
-            }
-
-            function delVoc(button) {
-                var id = button.parentNode.id;
-                var msg = "您真的確定要刪除嗎？\n\n請確認！";
-                if (confirm(msg)==true){
-                    post_to_url("{% url 'words:DelVoc'%}", {'id' : id});
-                } else{
-                    return;
-                }
-            }
-        </script>
+{% csrf_token %}
+{% load static %}
+<script src="{% static 'js/post_to_url.js' %}"></script>
+<script>
+	const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+	const rule = /[a-zA-Z]+$/
+	
+	function editVoc(button) {
+	    var id = button.parentNode.id;
+	    var result = "";
+	    while(result === "") {
+	        result = prompt("請輸入欲修改的內容");
+	        if(result === null) {
+	            return;
+	        }
+	        if(result === "") {
+	            alert("請輸入內容");
+	        }
+	        if(!rule.test(result)) {
+	            alert("單字只可由英文大小寫組成");
+	            result = "";
+	        }
+	    }
+	    post_to_url("{% url 'words:EditVoc'%}", {'voc_change' : result, 'id' : id});
+	}
+	
+	function delVoc(button) {
+	    var id = button.parentNode.id;
+	    var msg = "您真的確定要刪除嗎？\n\n請確認！";
+	    if (confirm(msg)==true){
+	        post_to_url("{% url 'words:DelVoc'%}", {'id' : id});
+	    } else{
+	        return;
+	    }
+	}
+</script>
 {% endblock %}
-
 {% block headmessage %}
 <h1>{{title}}</h1>
 {% endblock %}
-
 {% block content %}
-    {% if Vocabulary_list %}
-        <table class = "table">
-            {% for Vocabulary in Vocabulary_list %}
-                <tbody>
-                    <tr>
-                        <td><a href="{% url 'words:MeaningEditor' Vocabulary.pk %}"><strong><mark>{{Vocabulary.english}}</mark></strong></a></td>
-                        <td id = "{{ Vocabulary.pk }}"><button type = "button" class = "btn btn-success" onclick="editVoc(this);">編輯</button></td>
-                        <td id = "{{ Vocabulary.pk }}"><button type = "button" class = "btn btn-danger" onclick="delVoc(this);">刪除</button></td>
-                    </tr>
-                </tbody>    
-            {% endfor %}
-        </table>
-    {% else %}
-        <h5>No Vocabulary are available.</h5>
-    {% endif %}
-
-    <form class = "form-inline" action="{% url 'words:AddVoc'%}" method="POST">
-        {% csrf_token %}
-        <div class = "form-group">
-            <label>{{ form.english.label }}</label>
-            {{ form.english }}
-        </div>
-
-        <input type="hidden" name="id" value="{{ Set_id }}">
-
-        <div class = "form-group">
-            <button type="submit" class = "btn btn-success">提交</button>
-        </div>
-    </form>
-    <p>
-    <input type = "button" class = "btn btn-lg btn-primary" value="回上頁?" onclick="location.href='{% url 'words:CharacterSetEditor' %}'">
-{% endblock %}
+{% if Vocabulary_list %}
+<table class = "table">
+	{% for Vocabulary in Vocabulary_list %}
+	<tbody>
+		<tr>
+			<td><a href="{% url 'words:MeaningEditor' Vocabulary.pk %}"><strong><mark>{{Vocabulary.english}}</mark></strong></a></td>
+			<td id = "{{ Vocabulary.pk }}"><button type = "button" class = "btn btn-success" onclick="editVoc(this);">編輯</button></td>
+			<td id = "{{ Vocabulary.pk }}"><button type = "button" class = "btn btn-danger" onclick="delVoc(this);">刪除</button></td>
+		</tr>
+	</tbody>
+	{% endfor %}
+</table>
+{% else %}
+<h5>No Vocabulary are available.</h5>
+{% endif %}
+<form class = "form-inline" action="{% url 'words:AddVoc'%}" method="POST">
+	{% csrf_token %}
+	<div class = "form-group">
+		<label>{{ form.english.label }}</label>
+		{{ form.english }}
+	</div>
+	<input type="hidden" name="id" value="{{ Set_id }}">
+	<div class = "form-group">
+		<button type="submit" class = "btn btn-success">提交</button>
+	</div>
+</form>
+<p>
+	<input type = "button" class = "btn btn-lg btn-primary" value="回上頁?" onclick="location.href='{% url 'words:CharacterSetEditor' %}'">
+	{% endblock %}
