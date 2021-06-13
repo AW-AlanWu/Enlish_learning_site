@@ -183,12 +183,16 @@ def UserProfile(request, info):
     context = {}
     if request.user.is_authenticated:
         context['is_authenticated'] = request.user.is_authenticated
-    
+
+    object = request.user
+    context['username'] = object.username
+    context['email'] = object.email
+    context['last_login'] = str(object.last_login.ctime())
+    context['date_joined'] = str(object.date_joined.ctime())
+
     if info == "CharacterSet":
-        object = request.user
         CharacterSet_list = object.characterset_set.order_by('-pk')
         context['CharacterSet_list'] = CharacterSet_list
-        context['username'] = object.username
         return render(request, 'words/UserProfile.html', context)
     elif info == "score":
         context['Score_list'] = "None"

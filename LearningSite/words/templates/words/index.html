@@ -1,7 +1,45 @@
 {% extends 'base.html' %}
 {% block title %} Index {% endblock %}
 {% block content %}
-<ul>
-	<li><a href="{% url 'words:CharacterSetEditor' %}">字集創建區</a></li>
-</ul>
+<div class="list-group">
+	<button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="list-group-item list-group-item-action">網站使用教學</button>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="staticBackdropLabel">網站使用說明</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+          <h4>請先註冊帳號後才能享用此網站提供的服務 </h4>
+		  <h4>步驟一：</h4>
+		  <p>點選網站右上角的"Sign up"註冊帳號</p>
+		  <p>輸入您的使用者名稱、email、密碼、重複密碼(email須為正確的email格式，密碼則須為8位以上大小寫英文字加上特殊符號，如"abCDef!@"</p>
+		  <p>最後勾選同意使用條款(根本就沒有甚麼條款，只是感覺很順就加了這個XD)</p>
+		  <h4>步驟二：</h4>
+		  <p>接下來跳轉到登入介面，輸入剛才辦的帳號登入，接下來會跳轉回首頁</p>
+		  <h4>步驟三：</h4>
+		  <p>開始享受此網站的服務~</p>
+		  <h4>字集創建區：</h4>
+		  <p>進入後可於下方欄位輸入單字本名稱以創建單字本，要是想更改名稱或是刪除單字本，點綠色的編輯按鈕或是紅色的刪除按鈕即可</p>
+		  <p>點擊單字本名稱本身，即可跳轉到單字本內新增單字，處理邏輯如同單字本一樣，因此不再贅述</p>
+		  <p>再次點擊單字名稱，可進入到單字內新增字義，字義可新增的欄位有：中文解釋、例句(英)、例句(中)、詞性</p>
+		  <p>要是覺得自己慢慢打很麻煩，沒關係!!點擊"自動產生Meaning?"按鈕，網站將會自動到網路英文字典查找這個單字對應的字義</p>
+		  <p>不過，要是找不到的話，會有錯誤訊息產生，當這種情況發生時，請回去檢查自己拚字是否正確</p>
+		  <h4>User Profile：</h4>
+		  <p>如果您已經登入的話，可以在右上角看到一個粗體字的"User Profile"，裡面包含了帳號的相關資訊</p>
+		  <p>---因為網站處於開發階段，因此預設的照片無法改變，也無法查看測驗成績---</p>
+		  <h4>測驗區：</h4>
+		  <p>此功能還在測試，尚未實裝</p>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Understand?</button>
+		</div>
+	  </div>
+	</div>
+  </div>
 {% endblock %}
