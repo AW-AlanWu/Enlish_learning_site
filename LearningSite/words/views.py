@@ -25,7 +25,8 @@ def index(request):
 
 @login_required(login_url="Login")
 def CharacterSetEditor(request):
-    CharacterSet_list = CharacterSet.objects.order_by('-pk')
+    object = request.user
+    CharacterSet_list = object.characterset_set.order_by('-pk')
     form =  CharacterSetModelForm()
     context = {
         'CharacterSet_list': CharacterSet_list,
@@ -81,7 +82,7 @@ def EditSet(request):
 
 @login_required(login_url="Login")
 def AddSet(request):
-    Set = CharacterSet(set_name = request.POST['set_name'])
+    Set = CharacterSet(set_name = request.POST['set_name'], user = request.user)
     Set.save()
     return HttpResponseRedirect(reverse('words:CharacterSetEditor'))
 
@@ -184,8 +185,13 @@ def UserProfile(request, info):
         context['is_authenticated'] = request.user.is_authenticated
     
     if info == "CharacterSet":
+        object = request.user
+        CharacterSet_list = object.characterset_set.order_by('-pk')
+        context['CharacterSet_list'] = CharacterSet_list
+        context['username'] = object.username
         return render(request, 'words/UserProfile.html', context)
     elif info == "score":
+        context['Score_list'] = "None"
         return render(request, 'words/UserProfile.html', context)
     else:
        raise Http404("This site does not exist")

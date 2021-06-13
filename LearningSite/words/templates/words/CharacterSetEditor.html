@@ -43,11 +43,11 @@
 {% endblock %}
 {% block content %}
 {% if CharacterSet_list %}
-<table class = "table">
+<table class="table table-striped table-hover">
 	{% for CharacterSet in CharacterSet_list %}
 	<tbody>
 		<tr>
-			<td><a href="{% url 'words:VocabularyEditor' CharacterSet.pk %}"><strong><mark>{{CharacterSet.set_name}}</mark></strong></a></td>
+			<td><a href="{% url 'words:VocabularyEditor' CharacterSet.pk %}"><h4><strong><mark>{{CharacterSet.set_name}}</mark></strong></h4></a></td>
 			<td id = "{{ CharacterSet.pk }}"><button type = "button" class = "btn btn-success" onclick="editSet(this);">編輯</button></td>
 			<td id = "{{ CharacterSet.pk }}"><button type = "button" class = "btn btn-danger" onclick="delSet(this);">刪除</button></td>
 		</tr>
