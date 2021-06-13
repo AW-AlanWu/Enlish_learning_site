@@ -10,7 +10,10 @@ click==7.1.2
 colorama==0.4.4
 cookiecutter==1.7.2
 decorator==4.4.2
+dj-database-url==0.5.0
 Django==3.1.7
+django-heroku==0.3.1
+gunicorn==20.1.0
 h11==0.12.0
 httpcore==0.12.3
 httpx==0.16.1
@@ -26,10 +29,10 @@ MarkupSafe==1.1.1
 mccabe==0.6.1
 parso==0.8.1
 pickleshare==0.7.5
-pip==21.1.2
 pkginfo==1.6.1
 poyo==0.5.0
 prompt-toolkit==3.0.17
+psycopg2==2.8.6
 pup==1.0.0a9
 Pygments==2.8.1
 pylint==2.6.0
@@ -38,7 +41,6 @@ python-slugify==5.0.2
 pytz==2021.1
 requests==2.25.1
 rfc3986==1.5.0
-setuptools==53.0.0
 six==1.15.0
 sniffio==1.2.0
 soupsieve==2.2.1
@@ -48,6 +50,6 @@ toml==0.10.2
 traitlets==5.0.5
 urllib3==1.26.4
 wcwidth==0.2.5
-wheel==0.36.2
+whitenoise==5.2.0
 wrapt==1.12.1
 zstandard==0.15.1
