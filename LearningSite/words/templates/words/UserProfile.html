@@ -1,8 +1,22 @@
 {% extends 'base.html' %}
 {% block title %} Your Profile {% endblock %}
 {% block reference %}
+{% csrf_token %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/UserProfile.css' %}">
+<script src="{% static 'js/post_to_url.js' %}"></script>
+<script>
+	const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+	function deleteAccount() {
+		var msg = "刪除此帳號後，您帳號內的資料也會一併清除，確認刪除嗎？\n\n請確認！";
+		if (confirm(msg)==true){
+	        post_to_url("{% url 'deleteAccount'%}", {"deleteAccount" : "Yes"});
+	    } else{
+	        return;
+	    }
+	}
+</script>
 {% endblock %}
 {% block content %}
 <section id="content" class="container">
@@ -13,7 +27,8 @@
 		</div>
 		<div class="col-md-4">
 			<h2 class="media-heading">{{ username }}
-				<small> - Profile</small>
+				<small> - Profile</small>&nbsp;&nbsp;&nbsp;&nbsp;
+				<button type="button" class="btn btn-danger" onclick="deleteAccount();">刪除帳號</button>
 			</h2>
 			<p class="lead">Lorem ipsum dolor sit amet ctetur adicing elit, sed do eiusmod tempor incididunt</p>
 		</div>

@@ -35,7 +35,7 @@ class MeaningSetModelForm(forms.ModelForm):
         exclude = ['vocabulary']
 
         widgets = {
-            'chinese': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '請輸入中文解釋', 'pattern': "[a-zA-Z\u4e00-\u9fa5;]+$", 'title': '解釋只可由大小寫英文和中文以及分號組成'}),
+            'chinese': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '請輸入中文解釋', 'pattern': "[a-zA-Z\u4e00-\u9fa5;()]+$", 'title': '解釋只可由大小寫英文和中文以及分號、括號組成'}),
             'chinese_sentences': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '請輸入例句(中)'}),
             'english_sentences': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '請輸入例句(英)'}),
             'speech': forms.Select(attrs={'class': 'form-control', 'placeholder': '請輸入例句(英)'})

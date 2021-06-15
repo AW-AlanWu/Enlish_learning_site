@@ -199,3 +199,12 @@ def UserProfile(request, info):
         return render(request, 'words/UserProfile.html', context)
     else:
        raise Http404("This site does not exist")
+
+@login_required(login_url="Login")
+def deleteAccount(request):
+    if(request.POST['deleteAccount'] == "Yes"):
+        object = request.user
+        object.delete()
+        return HttpResponseRedirect(reverse('index'))
+    else:
+        raise Http404("Method Not Allowed")
