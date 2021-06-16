@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from words.views import index, Login, Sign_up, saveAccount, authenticateAccount, log_out, UserProfile, deleteAccount
+from words.views import index, Login, Sign_up, saveAccount, authenticateAccount, log_out, UserProfile, deleteAccount, editUserInfo
 
 urlpatterns = [
     path('words/', include('words.urls')),
@@ -28,4 +28,5 @@ urlpatterns = [
     path('register/saveAccount/', saveAccount, name='saveAccount'),
     path('userprofile/<str:info>/', UserProfile, name='UserProfile'),
     path('deleteAccount/', deleteAccount, name='deleteAccount'),
+    path('editUserInfo/', editUserInfo, name='editUserInfo'),
 ]

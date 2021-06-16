@@ -50,7 +50,7 @@ class MeaningSetModelForm(forms.ModelForm):
 
 class RegisterForm(UserCreationForm):
     username = forms.CharField(
-        widget=forms.TextInput(attrs={'type': 'text', 'name': 'name', 'id': 'name', 'placeholder': 'Your Name', 'pattern': "^[a-zA-Z][0-9a-zA-Z_]*", 'title': '帳號名稱開頭不可為數字且內容不可含有特殊字元'})
+        widget=forms.TextInput(attrs={'type': 'text', 'name': 'name', 'id': 'name', 'placeholder': 'Your Name', 'pattern': "^[a-zA-Z][0-9a-zA-Z_]*", 'title': '帳號名稱開頭不可為數字，且內容只可為英文大小寫其中不可含有特殊字元(除了底線_)'})
     )
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={'type': 'email', 'name': 'email', 'id': 'email', 'placeholder': 'Your Email', 'pattern': "^\w+((-\w+)|(\.\w+))*[@][A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]{2,4}$", 'title': '此電子郵件地址無效。請務必確認其格式為 example@email.com'})

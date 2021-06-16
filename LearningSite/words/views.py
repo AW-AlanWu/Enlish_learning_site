@@ -202,9 +202,21 @@ def UserProfile(request, info):
 
 @login_required(login_url="Login")
 def deleteAccount(request):
-    if(request.POST['deleteAccount'] == "Yes"):
+    if request.POST['deleteAccount'] == "Yes":
         object = request.user
         object.delete()
         return HttpResponseRedirect(reverse('index'))
     else:
         raise Http404("Method Not Allowed")
+
+@login_required(login_url="Login")
+def editUserInfo(request):
+    object = request.user
+    if request.POST['username']:
+        object.username = request.POST['username']
+    if request.POST['pass']:
+        object.set_password(request.POST['pass'])
+    if request.POST['email']:
+        object.email = request.POST['email']
+    object.save()
+    return HttpResponseRedirect(reverse('UserProfile', args = ("CharacterSet",)))

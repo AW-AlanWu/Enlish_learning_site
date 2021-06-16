@@ -30,6 +30,9 @@
 	}
 </script>
 {% endblock %}
+{% block headmessage %}
+<small class="text-muted">請在這邊新增您單字的解釋，有兩種方法：<br>1.到"下方新增解釋"的地方跟著欄位依序輸入您的解釋，然後提交<br>2.點擊"自動產生Meaning?"這個按鈕，點擊後將會自動到線上英文字點抓取對應解釋<br>(如若找不到對應字義，將會回報錯誤訊息，到時候請回到單字編輯區檢查拼字)</small>
+{% endblock %}
 {% block content %}
 {% if Meaning_list %}
 <ul class = "list-unstyled">

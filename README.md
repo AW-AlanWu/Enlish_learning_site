@@ -11,8 +11,11 @@
 3. 網站的header和footer
 	1. 套用bootstrap官方網站的template，並利用bootstrap設定的類別美化排版位置及加入置頂圖標
 	2. 連至其他網頁的連結
+	3. 介紹網站開發人以及聯絡資訊
 4. 最新字集顯示(待完成
 	1. 將最新數個願意分享的使用者的字集顯示在網站看板
+5. 網站使用說明
+	1. 利用Bootstrap的互動視窗以表格的形式放在首頁
 
 ### 字集創建區
 1. 以字集(set_name)->單字(english)->解釋(中、英例句,中譯,詞性)的模式儲存單字及其解釋
@@ -23,6 +26,8 @@
 	2. 設置一按鍵，按下後以爬蟲到線上英文字典爬取多項字義
 3. 基本的排版美化
 	1. 以bootstrap美化排版
+4. 個人化字集
+	1. 使用者只看的到自己創建的字集
 
 ### 帳號系統
 1. 註冊和登入
@@ -70,6 +75,9 @@
 >> (按下"自動產生Meaning")
 ![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/MeaningEditor(Auto_get_Meaning).png)
 
-<!--admin_site：
-Username=admin
-Password=zaq1xsw2-->
+### 帳號系統
+
+>> (登入)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/Login.png)
+>> (註冊)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/Sign_up.png)
