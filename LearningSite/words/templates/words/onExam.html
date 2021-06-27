@@ -43,7 +43,9 @@
             ansList[i] = ul.children[i].children[1].value;
         }
         ansList['examMethod'] = document.getElementById("examMethod").value;
-        get_to_url("{% url 'words:examHandler'%}", ansList);
+        ansList['len'] = ul.children.length;
+        ansList['set_pk'] = document.getElementById("set_pk").value;
+        post_to_url("{% url 'words:scoreHandler'%}", ansList);
     }
 </script>
 {% endblock %}
@@ -59,6 +61,7 @@
     {% endfor %}
 </ul>
 <input type="hidden" name="examMethod" id="examMethod" value="{{ examMethod }}">
+<input type="hidden" name="set_pk" id="set_pk" value="{{ set_pk }}">
 <script>
     window.onload=setQuestions;
     function setQuestions() {

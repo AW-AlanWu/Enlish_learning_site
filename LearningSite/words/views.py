@@ -2,7 +2,7 @@ from django.http.response import HttpResponseServerError
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from django.views import generic
-from .models import CharacterSet, Vocabulary, Meaning
+from .models import CharacterSet, Vocabulary, Meaning, Score
 from .forms import CharacterSetModelForm, VocabularySetModelForm, MeaningSetModelForm, RegisterForm, LoginForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -230,6 +230,7 @@ def Exam(request):
     context['CharacterSet_list'] = CharacterSet_list
     if request.user.is_authenticated:
         context['is_authenticated'] = request.user.is_authenticated
+        context['score_list'] = request.user.score_set.order_by('-pk')
     if request.method == "POST" and request.POST['pk']:
         set = get_object_or_404(CharacterSet, pk = request.POST['pk'])
         context['len'] = str(len(set.vocabulary_set.all()))
@@ -244,6 +245,7 @@ def examHandler(request):
         if request.user.is_authenticated:
             context['is_authenticated'] = request.user.is_authenticated
         object = get_object_or_404(CharacterSet, pk=request.POST['set_pk'])
+        context['set_pk'] = object.pk
 
         r = Random()
         questions =  object.vocabulary_set.order_by('-pk')
@@ -283,7 +285,44 @@ def examHandler(request):
     else:
         raise Http404("Method Not Allowed")
     
-"""
+
 @login_required(login_url="Login")
-def saveScore(request):
-"""
+def scoreHandler(request):
+    if request.POST['examMethod'] == '1':    #中翻英
+        correct = 0
+        for i in range(int(request.POST['len'])):
+            try:
+                Vocabulary.objects.get(english = request.POST[str(i)])
+                correct = correct + 1
+            except Vocabulary.DoesNotExist:
+                continue
+        s = Score(character_set = get_object_or_404(CharacterSet, pk = request.POST['set_pk']), correct = correct, total = request.POST['len'], examMethod = request.POST['examMethod'], user = request.user)
+        s.save()
+        return HttpResponseRedirect(reverse('words:Exam'))
+        
+    elif request.POST['examMethod'] == '2':    #英翻中
+        correct = 0
+        for i in range(int(request.POST['len'])):
+            try:
+                Meaning.objects.get(chinese = request.POST[str(i)])
+                correct = correct + 1
+            except Meaning.DoesNotExist:
+                continue
+        s = Score(character_set = get_object_or_404(CharacterSet, pk = request.POST['set_pk']), correct = correct, total = request.POST['len'], examMethod = request.POST['examMethod'], user = request.user)
+        s.save()
+        return HttpResponseRedirect(reverse('words:Exam'))
+
+    elif request.POST['examMethod'] == '3':    #克漏字
+        correct = 0
+        for i in range(int(request.POST['len'])):
+            try:
+                Vocabulary.objects.get(english = request.POST[str(i)])
+                correct = correct + 1
+            except Vocabulary.DoesNotExist:
+                continue
+        s = Score(character_set = get_object_or_404(CharacterSet, pk = request.POST['set_pk']), correct = correct, total = request.POST['len'], examMethod = request.POST['examMethod'], user = request.user)
+        s.save()
+        return HttpResponseRedirect(reverse('words:Exam'))
+
+    else:
+        raise Http404("Method Not Allowed")

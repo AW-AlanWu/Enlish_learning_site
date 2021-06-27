@@ -64,18 +64,22 @@
             <thead>
               <tr>
                 <th scope="col">字集</th>
-                <th scope="col">分數</th>
-                <th scope="col">單字總數/正確數</th>
+                <th scope="col">題目總數/正確數</th>
                 <th scope="col">測驗方式</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>TEST</td>
-                <td>75</td>
-                <td>80/60</td>
-                <td>中翻英</td>
-              </tr>
+                    {% if score_list %}
+                    {% for score in score_list %}
+                    <tr>
+                        <td>{{score}}</td>
+                        <td>{{score.total}}/{{score.correct}}</td>
+                        <td>{{score.METHOD_CHOICES.0.1}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <td>No score are available.</td>
+                    {% endif %}
             </tbody>
           </table>
     </div>

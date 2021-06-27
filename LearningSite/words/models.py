@@ -46,3 +46,27 @@ class Meaning(models.Model):
     )
     def __str__(self):
         return self.chinese
+
+class Score(models.Model):
+    method1 = '1'
+    method2 = '2'
+    method3 = '3'
+
+    METHOD_CHOICES = [
+        (method1, '中翻英'),
+        (method2, '英翻中'),
+        (method3, '克漏字'),
+    ]
+
+    character_set = models.ForeignKey(CharacterSet, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    correct = models.IntegerField()
+    total = models.IntegerField()
+    examMethod = models.CharField(
+        max_length = 1,
+        choices = METHOD_CHOICES,
+        blank = False,
+        default=None
+    )
+    def __str__(self):
+        return self.character_set.set_name
