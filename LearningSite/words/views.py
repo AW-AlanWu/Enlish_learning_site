@@ -257,7 +257,7 @@ def examHandler(request):
 
         for i in range(number):
             voc = questions[list[i]]
-            if request.POST['examMethod'] == '1':    #中翻英
+            if request.POST['examMethod'] == '0':    #中翻英
                 try:
                     meaning = voc.meaning_set.order_by('-pk')[int(r.generateRandomNumber() * len(voc.meaning_set.all()))]
                     questions_list.append(meaning.chinese)
@@ -265,9 +265,9 @@ def examHandler(request):
                     raise Http404("請先分別每個單字新增至少一個中文解釋")
                 except:
                     raise Http404("An unknown error occurred")
-            elif request.POST['examMethod'] == '2':    #英翻中
+            elif request.POST['examMethod'] == '1':    #英翻中
                 questions_list.append(voc.english)
-            elif request.POST['examMethod'] == '3':    #克漏字
+            elif request.POST['examMethod'] == '2':    #克漏字
                 try:
                     meaning = voc.meaning_set.order_by('-pk')[int(r.generateRandomNumber() * len(voc.meaning_set.all()))]
                     sentence = meaning.english_sentences.lower().replace(voc.english.lower(), "_____")
@@ -288,7 +288,7 @@ def examHandler(request):
 
 @login_required(login_url="Login")
 def scoreHandler(request):
-    if request.POST['examMethod'] == '1':    #中翻英
+    if request.POST['examMethod'] == '0':    #中翻英
         correct = 0
         for i in range(int(request.POST['len'])):
             try:
@@ -300,7 +300,7 @@ def scoreHandler(request):
         s.save()
         return HttpResponseRedirect(reverse('words:Exam'))
         
-    elif request.POST['examMethod'] == '2':    #英翻中
+    elif request.POST['examMethod'] == '1':    #英翻中
         correct = 0
         for i in range(int(request.POST['len'])):
             try:
@@ -312,7 +312,7 @@ def scoreHandler(request):
         s.save()
         return HttpResponseRedirect(reverse('words:Exam'))
 
-    elif request.POST['examMethod'] == '3':    #克漏字
+    elif request.POST['examMethod'] == '2':    #克漏字
         correct = 0
         for i in range(int(request.POST['len'])):
             try:

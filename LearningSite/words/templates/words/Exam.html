@@ -50,9 +50,9 @@
         <div class="row">
             <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="examMethod" required>
                 <option selected disabled hidden value="">請選擇測驗方式</option>
-                <option value="1">中翻英</option>
-                <option value="2">英翻中</option>
-                <option value="3">克漏字</option>
+                <option value="0">中翻英</option>
+                <option value="1">英翻中</option>
+                <option value="2">克漏字</option>
             </select>
         </div>
         <div class="row">
@@ -74,7 +74,7 @@
                     <tr>
                         <td>{{score}}</td>
                         <td>{{score.total}}/{{score.correct}}</td>
-                        <td>{{score.METHOD_CHOICES.0.1}}</td>
+                        <td>{{score.displayExamMethod}}</td>
                     </tr>
                     {% endfor %}
                     {% else %}

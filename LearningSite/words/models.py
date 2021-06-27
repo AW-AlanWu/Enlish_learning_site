@@ -48,9 +48,9 @@ class Meaning(models.Model):
         return self.chinese
 
 class Score(models.Model):
-    method1 = '1'
-    method2 = '2'
-    method3 = '3'
+    method1 = '0'
+    method2 = '1'
+    method3 = '2'
 
     METHOD_CHOICES = [
         (method1, '中翻英'),
@@ -70,3 +70,5 @@ class Score(models.Model):
     )
     def __str__(self):
         return self.character_set.set_name
+    def displayExamMethod(self):
+        return self.METHOD_CHOICES[int(self.examMethod)][1]
