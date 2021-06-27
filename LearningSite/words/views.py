@@ -1,6 +1,6 @@
 from django.http.response import HttpResponseServerError
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from django.views import generic
 from .models import CharacterSet, Vocabulary, Meaning
 from .forms import CharacterSetModelForm, VocabularySetModelForm, MeaningSetModelForm, RegisterForm, LoginForm
@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.contrib.auth.models import User
 from .spider import fetchMeaning
+from .random import Random
 
 def index(request):
     num_visits = request.session.get('num_visits', 0)
@@ -220,3 +221,39 @@ def editUserInfo(request):
         object.email = request.POST['email']
     object.save()
     return HttpResponseRedirect(reverse('UserProfile', args = ("CharacterSet",)))
+
+@login_required(login_url="Login")
+def Exam(request):
+    context = {}
+    object = request.user
+    CharacterSet_list = object.characterset_set.order_by('-pk')
+    context['CharacterSet_list'] = CharacterSet_list
+    if request.user.is_authenticated:
+        context['is_authenticated'] = request.user.is_authenticated
+    if request.method == "POST" and request.POST['pk']:
+        set = get_object_or_404(CharacterSet, pk = request.POST['pk'])
+        context['len'] = str(len(set.vocabulary_set.all()))
+        context['selectedSet'] = set.set_name
+    return render(request, 'words/Exam.html', context)
+
+"""
+@login_required(login_url="Login")
+def examHandler(request):
+    if request.POST['set_name'] and request.POST['examMethod'] and request.POST['number']:
+        context = {}
+        if request.user.is_authenticated:
+        context['is_authenticated'] = request.user.is_authenticated
+        object = get_object_or_404(CharacterSet, set_name=request.POST['set_name'])
+        for i in range(int(number)):
+        
+    else:
+        raise Http404("Method Not Allowed")
+    
+@login_required(login_url="Login")
+def setupExam(request):
+    request.POST['set_name']
+    request.POST['examMethod']
+
+@login_required(login_url="Login")
+def saveScore(request):
+"""

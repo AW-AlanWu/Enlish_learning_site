@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block title %} 測驗區 {% endblock %}
+{% block reference %}
+{% csrf_token %}
+{% load static %}
+<script src="{% static 'js/post_to_url.js' %}"></script>
+<script>
+	const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    function start() {
+        var msg = "測驗即將開始\n\n請按下確認繼續！";
+	    if (confirm(msg)==true){
+	        button = document.getElementById("submit");
+            button.type = "submit";
+            return;
+	    } else {
+	        return;
+	    }
+    }
+
+    function changeNumber(set_pk) {
+        post_to_url("{% url 'words:Exam'%}", {'pk' : set_pk});
+    }
+</script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <form action="#" method="GET">
+        <div class="row">
+            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="set_name" required onchange="changeNumber(selectedOptions[0].value);">
+                {% if CharacterSet_list %}
+                <option selected disabled hidden value="">請選擇欲進行測驗的字集</option>
+                {% for CharacterSet in CharacterSet_list %}
+                {% if CharacterSet.set_name == selectedSet %}
+                <option value="{{CharacterSet.pk}}" selected>{{CharacterSet.set_name}}</option>
+                {% else %}
+                <option value="{{CharacterSet.pk}}">{{CharacterSet.set_name}}</option>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <option selected disabled hidden value="">No CharacterSet are available.</option>
+                {% endif %}
+            </select>
+        </div>
+        <div class="row" id="numberDiv">
+            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="number" id="number" required>
+                <option selected disabled hidden value="">選擇完測驗字集後，請選擇欲測驗的題數</option>
+            </select>
+        </div>
+        <div class="row">
+            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="examMethod" required>
+                <option selected disabled hidden value="">請選擇測驗方式</option>
+                <option value="1">中翻英</option>
+                <option value="2">英翻中</option>
+                <option value="3">克漏字</option>
+            </select>
+        </div>
+        <div class="row">
+            <button type="button" id="submit" class="btn btn-primary btn-lg btn-block" onclick="start();">Let's GO!</button>
+        </div>
+    </form>
+    <div class="row">
+        <table  class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">字集</th>
+                <th scope="col">分數</th>
+                <th scope="col">單字總數/正確數</th>
+                <th scope="col">測驗方式</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TEST</td>
+                <td>75</td>
+                <td>80/60</td>
+                <td>中翻英</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
+{% if len %}
+<span id="len" style="display:none">{{ len }}</span>
+<script>
+	window.onload=getSetLength;
+    function getSetLength() {
+        div = document.getElementById("numberDiv");
+        div.replaceChild(document.getElementById("number").cloneNode(false), document.getElementById("number"));
+        lengthSelect = document.getElementById("number");
+        //var len = parseInt(document.getElementById("len"), 10);
+        var len = parseInt(document.getElementById("len").innerText, 10);
+        if(len == 0) {
+            var newOption = document.createElement('option');
+            newOption.text = "No Vocabulary are available.";
+            newOption.value = "";
+            newOption.selected = "selected";
+            newOption.disabled = "disabled";
+            newOption.hidden  = "hidden";
+            lengthSelect.appendChild(newOption);
+            return;
+        }
+        for(i = 1; i <= len; i++) {
+            var newOption = document.createElement('option');
+            newOption.text = i;
+            newOption.value = i;
+            lengthSelect.appendChild(newOption);
+        }
+    }
+</script>
+{% endif %}
+{% endblock %}
