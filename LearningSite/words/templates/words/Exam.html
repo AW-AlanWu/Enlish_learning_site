@@ -24,9 +24,10 @@
 {% endblock %}
 {% block content %}
 <div class="container">
-    <form action="#" method="GET">
+    <form action="{% url 'words:examHandler' %}" method="POST">
+    {% csrf_token %}
         <div class="row">
-            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="set_name" required onchange="changeNumber(selectedOptions[0].value);">
+            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="set_pk" required onchange="changeNumber(selectedOptions[0].value);">
                 {% if CharacterSet_list %}
                 <option selected disabled hidden value="">請選擇欲進行測驗的字集</option>
                 {% for CharacterSet in CharacterSet_list %}

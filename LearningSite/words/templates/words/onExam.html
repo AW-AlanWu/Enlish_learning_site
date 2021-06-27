@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %} 測驗區 {% endblock %}
+{% block reference %}
+{% csrf_token %}
+{% load static %}
+<script src="{% static 'js/post_to_url.js' %}"></script>
+<script>
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    function previous(list) {
+        list.style = "display:none";
+        list.previousElementSibling.style = "";
+    }
+
+    function next(list) {
+        list.style = "display:none";
+        list.nextElementSibling.style = "";
+    }
+
+    function get_to_url(path, params) {
+        params.csrfmiddlewaretoken = csrftoken;
+
+        var form = document.createElement("form");
+        form.setAttribute("method", "get");
+        form.setAttribute("action", path);
+
+        for(var key in params) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    function submitAnswer() {
+        ul = document.getElementById("question_list");
+        ansList = new Object();
+        for(i = 0; i < ul.children.length; i++) {
+            ansList[i] = ul.children[i].children[1].value;
+        }
+        ansList['examMethod'] = document.getElementById("examMethod").value;
+        get_to_url("{% url 'words:examHandler'%}", ansList);
+    }
+</script>
+{% endblock %}
+{% block content %}
+<ul class="list-group" id="question_list">
+    {% for question in questions_list %}
+    <li class="list-group-item" style="display:none">
+        <p>{{question}}</p>
+        <input type="text" class="form-control" placeholder="Answer" aria-label="Username">
+        <button type="button" class="btn btn-primary" onclick="previous(this.parentElement);">上一個</button>
+        <button type="button" class="btn btn-info" onclick="next(this.parentElement);">下一個</button>
+    </li>
+    {% endfor %}
+</ul>
+<input type="hidden" name="examMethod" id="examMethod" value="{{ examMethod }}">
+<script>
+    window.onload=setQuestions;
+    function setQuestions() {
+        ul = document.getElementById("question_list");
+        ul.firstElementChild.children[2].remove();
+        ul.firstElementChild.style = "";
+
+        var submit = document.createElement('button');
+        submit.setAttribute("type", "button");
+        submit.setAttribute("class", "btn btn-warning");
+        submit.setAttribute("onclick", "submitAnswer();");
+        submit.innerText = "提交";
+        ul.lastElementChild.replaceChild(submit, ul.lastElementChild.lastElementChild);
+    }
+</script>
+{% endblock %}
