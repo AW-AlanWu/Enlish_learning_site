@@ -257,25 +257,17 @@ def examHandler(request):
 
         for i in range(number):
             voc = questions[list[i]]
+            if not voc.meaning_set.all():
+                raise Http404("請先分別每個單字新增至少一個中文解釋")
             if request.POST['examMethod'] == '0':    #中翻英
-                try:
-                    meaning = voc.meaning_set.order_by('-pk')[int(r.generateRandomNumber() * len(voc.meaning_set.all()))]
-                    questions_list.append(meaning.chinese)
-                except IndexError:
-                    raise Http404("請先分別每個單字新增至少一個中文解釋")
-                except:
-                    raise Http404("An unknown error occurred")
+                meaning = voc.meaning_set.order_by('-pk')[int(r.generateRandomNumber() * len(voc.meaning_set.all()))]
+                questions_list.append(meaning.chinese)
             elif request.POST['examMethod'] == '1':    #英翻中
                 questions_list.append(voc.english)
             elif request.POST['examMethod'] == '2':    #克漏字
-                try:
-                    meaning = voc.meaning_set.order_by('-pk')[int(r.generateRandomNumber() * len(voc.meaning_set.all()))]
-                    sentence = meaning.english_sentences.lower().replace(voc.english.lower(), "_____")
-                    questions_list.append(sentence.capitalize())
-                except IndexError:
-                    raise Http404("請先分別每個單字新增至少一個英文例句")
-                except:
-                    raise Http404("An unknown error occurred")
+                meaning = voc.meaning_set.order_by('-pk')[int(r.generateRandomNumber() * len(voc.meaning_set.all()))]
+                sentence = meaning.english_sentences.lower().replace(voc.english.lower(), "_____")
+                questions_list.append(sentence.capitalize())
 
         context['questions_list'] = questions_list
         context['examMethod'] = request.POST['examMethod']

@@ -34,10 +34,16 @@ def fetchMeaning(word, Voc):
                         next_node = x.find_next_siblings("div")
                         chinese = x.text
                         if next_node:
-                            chinese_sentences = next_node[0].find("span",class_="trans dtrans dtrans-se hdb break-cj").text
-                            english_sentences = next_node[0].find("span",class_="eg deg").text
+                            try:
+                                chinese_sentences = next_node[0].find("span",class_="trans dtrans dtrans-se hdb break-cj").text
+                                english_sentences = next_node[0].find("span",class_="eg deg").text
+                            except AttributeError:
+                                continue
+                        try:
                             Mean = Meaning(chinese = chinese, chinese_sentences = chinese_sentences, english_sentences = english_sentences, speech = speech, vocabulary = Voc)
                             Mean.save()
+                        except UnboundLocalError:
+                            return "Could not find the sentence of word"
             return "success"
         else:
             return "Could not find the meaning of word"
