@@ -85,7 +85,7 @@
 ![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/Sign_up.png)
 
 >> (使用者頁面[字集])
-![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/UserProfile(CharacterSet).png.png)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/UserProfile(CharacterSet).png)
 >> (使用者頁面[測驗成績])
 ![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/UserProfile(Score).png)
 
