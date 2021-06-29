@@ -184,6 +184,7 @@ def UserProfile(request, info):
     context = {}
     if request.user.is_authenticated:
         context['is_authenticated'] = request.user.is_authenticated
+        context['score_list'] = request.user.score_set.order_by('-pk')
 
     object = request.user
     context['username'] = object.username

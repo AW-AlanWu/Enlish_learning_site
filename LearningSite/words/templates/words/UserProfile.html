@@ -169,19 +169,38 @@
 				</li>
 			</ul>
 			{% if CharacterSet_list %}
-			<table class = "table table-striped">
+			<table class="table table-striped table-hover">
 				{% for CharacterSet in CharacterSet_list %}
 				<tbody>
 					<tr>
-						<td>
-							<h5><strong><mark>{{CharacterSet.set_name}}</mark></strong></h5>
-						</td>
+						<td><h4><strong><mark>{{CharacterSet.set_name}}</mark></strong></h4></td>
 					</tr>
 				</tbody>
 				{% endfor %}
 			</table>
 			{% elif Score_list %}
-			<h5>此功能還在測試，尚未實裝</h5>
+			<table  class="table table-hover">
+				<thead>
+				  <tr>
+					<th scope="col">字集</th>
+					<th scope="col">題目總數/正確數</th>
+					<th scope="col">測驗方式</th>
+				  </tr>
+				</thead>
+				<tbody>
+						{% if score_list %}
+						{% for score in score_list %}
+						<tr>
+							<td>{{score}}</td>
+							<td>{{score.total}}/{{score.correct}}</td>
+							<td>{{score.displayExamMethod}}</td>
+						</tr>
+						{% endfor %}
+						{% else %}
+						<td>No score are available.</td>
+						{% endif %}
+				</tbody>
+			  </table>
 			{% elif not CharacterSet_list %}
 			<h5>No CharacterSet are available.</h5>
 			{% endif %}

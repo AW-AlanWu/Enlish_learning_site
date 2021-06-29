@@ -2,38 +2,29 @@
 {% block title %} Index {% endblock %}
 {% block content %}
 <div class="list-group">
-	<button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="list-group-item list-group-item-action">網站使用教學</button>
+	<button type="button" data-bs-toggle="modal" data-bs-target="#guide" class="list-group-item list-group-item-action">網站使用教學</button>
+	<button type="button" data-bs-toggle="modal" data-bs-target="#introduction" class="list-group-item list-group-item-action">網站功能介紹</button>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="guide" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="guideLabel" aria-hidden="true">
 	<div class="modal-dialog">
 	  <div class="modal-content">
 		<div class="modal-header">
-		  <h5 class="modal-title" id="staticBackdropLabel">網站使用說明</h5>
+		  <h5 class="modal-title" id="guideLabel">網站使用教學</h5>
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
-          <h4>請先註冊帳號後才能享用此網站提供的服務 </h4>
-		  <h4>步驟一：</h4>
+		  <h3>註冊帳號後才能<br>享用本網站提供的服務 </h3>
+		  <h5>步驟一：</h5>
 		  <p>點選網站右上角的"Sign up"註冊帳號</p>
 		  <p>輸入您的使用者名稱、email、密碼、重複密碼(email須為正確的email格式，密碼則須為8位以上大小寫英文字加上特殊符號，如"abCDef!@"</p>
 		  <p>最後勾選同意使用條款(根本就沒有甚麼條款，只是感覺很順就加了這個XD)</p>
-		  <h4>步驟二：</h4>
+		  <h5>步驟二：</h5>
 		  <p>接下來跳轉到登入介面，輸入剛才辦的帳號登入，接下來會跳轉回首頁</p>
-		  <h4>步驟三：</h4>
-		  <p>開始享受此網站的服務~</p>
-		  <h4>字集創建區：</h4>
-		  <p>進入後可於下方欄位輸入單字本名稱以創建單字本，要是想更改名稱或是刪除單字本，點綠色的編輯按鈕或是紅色的刪除按鈕即可</p>
-		  <p>點擊單字本名稱本身，即可跳轉到單字本內新增單字，處理邏輯如同單字本一樣，因此不再贅述</p>
-		  <p>再次點擊單字名稱，可進入到單字內新增字義，字義可新增的欄位有：中文解釋、例句(英)、例句(中)、詞性</p>
-		  <p>要是覺得自己慢慢打很麻煩，沒關係!!點擊"自動產生Meaning?"按鈕，網站將會自動到網路英文字典查找這個單字對應的字義</p>
-		  <p>不過，要是找不到的話，會有錯誤訊息產生，當這種情況發生時，請回去檢查自己拚字是否正確</p>
-		  <h4>User Profile：</h4>
-		  <p>如果您已經登入的話，可以在右上角看到一個粗體字的"User Profile"，裡面包含了帳號的相關資訊</p>
-		  <p>---因為網站處於開發階段，因此預設的照片無法改變，也無法查看測驗成績---</p>
-		  <h4>測驗區：</h4>
-		  <p>此功能還在測試，尚未實裝</p>
+		  <h5>步驟三：</h5>
+		  <p>登入後可以發現網站左上方多了字集創建區、測驗區，右上方多了User Profile，恭喜你解鎖了會員專用功能XD</p>
+		  <p>請開始享受此網站的服務~</p>
 		</div>
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Understand?</button>
@@ -41,4 +32,64 @@
 	  </div>
 	</div>
   </div>
+  
+  <!-- Modal -->
+<div class="modal fade" id="introduction" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="introductionLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="introductionLabel">網站功能介紹</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<h3>字集創建區</h3>
+			<h4>裡面分成三層，分別為：字集創建區、單字創建區、解釋創建區</h4>
+			<h4>字集創建區</h4>
+			<p>字集==單字本</p>
+			<p>進入後可於下方欄位輸入單字本名稱以創建單字本，要是想更改名稱或是刪除單字本，點綠色的編輯按鈕或是紅色的刪除按鈕即可</p>
+			<p>然後點擊單字本名稱本身，即可跳轉到單字本內的單字創建區</p>
+			<h4>單字創建區</h4>
+			<p>單字==你單字本內的單字本身</p>
+			<p>進入後可於下方欄位輸入單字名稱以創建單字，要是想更改名稱或是刪除單字，點綠色的編輯按鈕或是紅色的刪除按鈕即可</p>
+			<p class="text-danger">注意!!雖然沒有禁止輸入大寫字母，但要是你輸入大寫的話，可能會導致之後測驗克漏字時的檢查會失準!!</p>
+			<h4>解釋創建區</h4>
+			<p>進入後可於下方欄位分別輸入中文解釋、例句(英)、例句(英)、詞性後，可以創建解釋，不過無法更改名稱，只能點擊旁邊的紅色按鈕刪除解釋</p>
+			<p>覺得自己慢慢打解釋很麻煩?沒關係!!點擊"自動產生Meaning?"按鈕，網站將會自動到網路英文字典查找這個單字對應的字義</p>
+			<p>不過，要是有錯誤訊息產生的話，請先回去檢查自己拚字是否正確</p>
+			<p>要是還是無法取得解釋的話，那代表在字典中找不到對應的解釋(它只有在都有找到中文解釋、例句(英)、例句(英)、詞性下才算通過，所以要是字典少了任何一個，就會出錯，至於為什麼呢?...我就爛啦XD)</p>
+			<p>本網站使用的線上英文字典：<a href="https://dictionary.cambridge.org/zht/">劍橋字典</a></p>
+			<h3>測驗區</h3>
+			<p>測驗區顧名思義，就是提供測驗的地方(廢話</p>
+			<p>進去後你可以選擇你要測驗的字集</p>
+			<p>在<strong>選完字集後</strong>你才可以選擇你要測驗的題目數量</p>
+			<p>然後你要選擇你測驗的方式</p>
+			<p>分別有：中翻英、英翻中、克漏字</p>
+			<p>(我個人推薦中翻英和克漏字，因為測驗檢查的方式是錯一字即錯，所以要是你的中文解釋中有一堆;)(_之類的符號的話...你會很辛苦(笑</p>
+			<p>然後進去考試後，因為設計問題，所以考完後會直接回到測驗區預設的頁面</p>
+			<p>但是這時你就會發現你的考試結果顯示在頁面下方了</p> 
+			<h3>User Profile</h3>
+			<p>這邊可以看到關於你帳號的各種資訊，一進去可以看到在頁面右方中間的名字，名字旁邊有兩個圖標</p>
+			<p>點擊紅色垃圾桶圖樣的圖標可以刪除你的帳號；點擊藍色鉛筆圖樣的圖標可以編輯你帳號的各種資訊</p>
+			<p>名字左邊可以看到圖片，而且圖片下方可以看到一個"My Photo"的按鈕，按下去有一個互動視窗讓你從4張照片選一張...</p>
+			<p>欸?怎麼沒用呢?對不起!我沒做這個功能，抱歉(´ΘωΘ`)那照片也只是放好看的</p>
+			<p>之後下面兩個"字集"、"測驗成績"按鈕可以分別看到你這個帳號擁有的所有字集與成績</p>
+			<h4>其他..</h4>
+			<p>網站右上方的搜尋欄沒有任何用處喔~欸嘿(灬ºωº灬)</p>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Understand?</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+
+  <script>
+    window.onload=printHelloMessage;
+    function printHelloMessage() {
+        v = document.getElementById("num-visits");
+		if(v.innerHTML.split(" ")[45] < 4) {
+			alert("歡迎來到英文單字輔助學習網!!\n在首頁中間的表格點進去是網站的使用教學\n網站的操作方式全寫在裡面了，接下來請享受本網站提供的服務吧!\n網站製作者--AlanHacker關心您")
+		}
+    }
+</script>
 {% endblock %}

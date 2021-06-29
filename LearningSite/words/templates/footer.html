@@ -3,9 +3,9 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <p><span class="text-muted">
+                <p><span class="text-muted" id="num-visits">
                     {% if num_visits %}
-                    You have visited this page  {{ num_visits }}
+                    You have visited this site {{ num_visits }}
                         {% if num_visits == 1 %} 
                             time
                         {% else %}
