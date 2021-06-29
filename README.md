@@ -39,7 +39,7 @@
 	6. 讓歷史成績和字集的model與讓使用者關聯
 2. 使用者個人資訊頁面(待完成
 	1. 顯示使用者各項資訊(username、email、password、pub_date)
-	2. 讓使用者上傳照片作為頭貼，使用到的技術還正在確定
+	2. 讓使用者上傳照片作為頭貼，使用到的技術還正在確定(因此未完成
 	3. 可修改密碼
 	4. 可看到自己的歷史測驗成績(答對、錯誤單字,所用字集,字集正確、錯誤數)和自己創建的字集
 
@@ -83,3 +83,15 @@
 ![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/Login.png)
 >> (註冊)
 ![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/Sign_up.png)
+
+>> (使用者頁面[字集])
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/UserProfile(CharacterSet).png.png)
+>> (使用者頁面[測驗成績])
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/UserProfile(Score).png)
+
+### 測驗區
+
+>> (測驗設定)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/Exam.png)
+>> (測驗中)
+![alt text](https://github.com/AW-AlanWu/Enlish_learning_site/blob/master/images/onExam.png)
